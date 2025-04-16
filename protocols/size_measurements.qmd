@@ -1,0 +1,47 @@
+# Copepod Prosome Length Measurement Protocol
+
+Prosome length is used as a metric for individual body length. The protocol has two components: **imaging** and **measuring**.
+
+## Taking Size Images
+
+1)  If the sample is preserved in ethanol, pre-soak copepods for at least 10 minutes in water. Gently invert the tube until the tube is well mixed, then sub-sample and add to petri dish with water. Using the dissection microscope, isolate copepods on the well-plate lid using the needle-nose tweezers.
+
+    -   Notes: be careful not to bend or break the tips on the needle-nose tweezers. Aim for one copepod per drop of water to keep track of individual IDs.
+
+2)  Carefully move samples to compound microscope.
+
+    -   Notes: When using the compound microscope, carefully remove the dust cover, ensure the stage is lowered and the smallest objective (red label) is engaged. Set up the camera adapter on the optical lens.
+
+3)  Place the scale bar on the stage. Adjust focus and light levels, and then engage 'focus lock' on your phone. Take the scale bar image.
+
+    -   Note: It's important that the scale bar image is taken under identical conditions to the samples you want to measure (stage position, magnification, microscope focal plane, phone focus, etc.).
+
+4)  Replace the scale bar with the well-plate lid. Moving individual by individual, remove enough water from each drop to produce a flat 'plane' of water. This should hold the individual flat against the bottom of the well, but without breaking the surface tension of the water. Position the individual so that the entire prosome is in view, focus, and then take the picture.
+
+    -   Note: when moving between rows, make sure 20x does not come in contact with well plate. If the camera becomes unfocused or turns off, retake the scale bar image before continuing with the rest of the samples.
+
+5)  When done, switch back to lowest objective, reduce the light levels, ensure the stage is lowered and then remove the plate. Turn off the microscope and remove the camera before replacing the dust cover.
+
+6)  Rinse well plate and clean work station.
+
+## Converting from HEIC to JPEG
+
+The measurement step requires JPEG. iPhone images are often exported as HEIC. Mac computers can easily convert HEIC to JPEG (right click on image file \> Quick Action \> Convert Image). Converting images on a Windows computer might require a dedicated converter - there are many online options available.
+
+## Size Measurements
+
+The program Fiji (AKA ImageJ) is used to measure prosome lengths. The scale bar is used to convert from pixel lengths to millimeters.
+
+1.  Open the JPEG of the scale bar in Fiji/image-J
+
+2.  Select the line tool and trace the scale bar. This segment must be parallel to the scale bar in order to get an accurate measurement.
+
+3.  In the Analyze menu, select 'Set Scale'. Set 'known distance' to 1. Make sure the "Global" box is selected, then hit ok.
+
+4.  Move on to the first image to measure. Still with the straight line tool, create a segment stretching from the foremost point at the anterior end of the prosome to the posterior end. For species with metasomal wings or other projects, measurements should exclude these features.
+
+5.  Make the measurement. Record relevant information into the data sheet.
+
+    -   Note: There are useful keyboard shortcuts for this (Mac: Command + m; Windows: Control + m)
+
+    -   Note: if multiple scale bars, repeat process for each scale bar recorded.
