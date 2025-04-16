@@ -1,0 +1,69 @@
+---
+title: "Semester / Summer Report"
+format: html
+author: "YOUR NAME"
+date: 2025-06-01
+---
+
+### Report Instructions
+
+All lab members need to provide an overview of what they've been working on at the end of the semester / summer. This report should cover work across any and all projects (you don't need a separate report for each one). The report should include:
+
+-   A short introduction to each project\
+-   The relevant hypotheses\
+-   Detailed methods (or progress on method development)\
+-   An overview of data collected\
+-   A section on main conclusions, troubleshooting, and next steps
+
+Reports should be generated with a quarto file. But other than than, the styling is up to you.
+
+For graduate students and undergraduates working on independent projects, use the format described above. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, the report should instead focus on a description of how time in the lab is allocated (day-to-day tasks, other things they've been working on, etc.). In the methods section, make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time, but will also be helpful when you're applying for jobs and need a reminder of all the transferable skills you've been working on.
+
+These reports should be rendered, and the HTML output posted to the 'summaries' channel in slack - make sure they're written so that anyone in the lab can follow along!
+
+A couple small (but important) requirements:
+
+-   All code chunks should use `echo = T`. Turn on code folding if you'd prefer a more streamlined look.
+-   Save the file / HTML output as YYYY_LASTNAME_TERM.html
+    -   YYYY = Year in 4-digit format (e.g. 2025)
+    -   LASTNAME = your last name in upper case (e.g. SASAKI)
+    -   TERM = Either "FALL", "SPRING", or "SUMMER".
+    -   Combined, the html file name should be something like "2025_SASAKI_FALL.html"
+
+The instructions above can be removed before submitting the final report. The sections below can be used for the report (just replace the text under each heading). 
+
+------------------------------------------------------------------------
+
+### Component Projects
+
+Provide a brief introduction to each projects covered in the report, along with the main hypothesis you're testing (1-2 paragraphs total). It would be useful to include a brief description of the scope of each project included in the report (e.g. PhD chapter, honors thesis, standard lab project).
+
+## Data Sources
+
+Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (this works best when the repo is public, not private). Where other data is used, make sure the source is clearly described.  
+
+**Repo 1** - [**starved_ctmax**](https://github.com/ZoopEcoEvo/starved_ctmax/) 
+
+This repo is for the project on XYZ. Specific data sets included in this report are:  
+
+```{r}
+
+example_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/starved_ctmax/refs/heads/main/Output/Data/starv_data.csv")
+
+```
+
+## Methods
+
+Provide **detailed** methods. Ideally you would provide links to methods in your lab notebook or the lab protocol repository, along with a detailed outline of the methods used (think manuscript style methods section).
+
+## Data Summary
+
+Clearly describe the data you've collected. Be sure to include basic elements (sample sizes, traits measured, summary stats, etc.) along with description of results or patterns. Figures are useful to include, but make sure the figures make sense in the context of this report!
+
+## Conclusions & Troubleshooting
+
+What's the main conclusion you're taking away from the data you've collected. Focus on particular on how findings relate to your hypotheses. Interesting or unexpected observations are also good to discuss here!
+
+## Next Steps
+
+Essentially, what are you going to work on next to advance the project? Focus on the next term, but you can also mention long-term plans.
