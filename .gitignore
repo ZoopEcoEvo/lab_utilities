@@ -3,3 +3,15 @@
 .RData
 .Ruserdata
 .DS_Store
+protocols/size_measurements_files/libs/bootstrap/bootstrap-icons.css
+protocols/size_measurements_files/libs/bootstrap/bootstrap-icons.woff
+protocols/size_measurements_files/libs/bootstrap/bootstrap.min.css
+protocols/size_measurements_files/libs/bootstrap/bootstrap.min.js
+protocols/size_measurements_files/libs/clipboard/clipboard.min.js
+protocols/size_measurements_files/libs/quarto-html/anchor.min.js
+protocols/size_measurements_files/libs/quarto-html/popper.min.js
+protocols/size_measurements_files/libs/quarto-html/quarto-syntax-highlighting.css
+protocols/size_measurements_files/libs/quarto-html/quarto.js
+protocols/size_measurements_files/libs/quarto-html/tippy.css
+protocols/size_measurements_files/libs/quarto-html/tippy.umd.min.js
+protocols/size_measurements.html
