@@ -1,8 +1,10 @@
 ---
 title: "Semester / Summer Report"
 format: html
+toc: true
+toc-depth: 3
 author: "YOUR NAME"
-date: 2025-06-01
+date: "`r Sys.Date()`"
 ---
 
 ### Report Instructions
