@@ -48,7 +48,7 @@ The program Fiji (AKA ImageJ) is used to measure prosome lengths. The scale bar 
 
     -   Note: if multiple scale bars, repeat process for each scale bar recorded.
 
-## Scanner-based Method 
+## Scanner-based Method
 
 ### Getting the images
 

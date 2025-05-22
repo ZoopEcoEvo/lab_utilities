@@ -1,0 +1,27 @@
+# Protocol for Cell Concentration Measurements with Scepter 
+
+Equipment Needed:
+
+-   Scepter Cell Counter
+-   Sensors
+-   Cell Cultures / Samples
+-   Parafilm if sealing cultures
+-   Notepad & Pen
+
+To find concentration (cells/mL) and diameter (um) of sample(s):
+
+1.  Hold the menu button to turn Scepter on (wait for the screen to turn on).
+2.  Follow on screen directions: Attach the sensor with the longer-flat side towards the user (flat side should be flush with top of the sensor port).
+3.  Once the Scepter has finished characterizing the sensor (Scepter will beep at this point), invert the tubes 3-5x to make sure the cells are well mixed (slowly, so the air bubbles go all the way down and way back. Avoid shaking).
+4.  Remove parafilm from sample.
+5.  Submerge sensor into the tube and hit 'Ok' (Scepter will beep at this point). Fluid should enter the sensor chip.
+6.  Follow on screen directions: When Scepter beeps again, eject and discard the sensor using the black button.
+7.  Record the measurements.
+8.  Press 'Ok' to go to the menu, and then hit 'Ok' again to go to the home page.
+9.  Repeat for each sample.
+
+When finished with the measurements:
+
+-   When finished, hold menu to turn Scepter off.
+-   Hook Scepter to wall.
+-   Put box of sensors back where they belong.
