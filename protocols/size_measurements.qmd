@@ -1,4 +1,5 @@
 # Copepod Prosome Length Measurement Protocol
+Developed Spring 2025
 
 Prosome length is used as a metric for individual body length. The protocol has two general components: **imaging** and **measuring**. The specific methods depend on the imaging mode.
 
