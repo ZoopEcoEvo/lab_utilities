@@ -70,7 +70,7 @@ Before starting, you'll need to make sure the Qualitative Annotations plug-in is
 
     - 10 square units seems to work well for large petri dishes
 
-1. Set up the categories for the annotations (Plug-ins > Qualitative Annotations > Multi-class (drop-down)
+6. Set up the categories for the annotations (Plug-ins > Qualitative Annotations > Multi-class (drop-down)
 
     - You'll need a CSV file that outlines the categories and options. The first row of each column will be read in as the category title. The proceeding cells under the header will be read as the different options.
 
@@ -85,11 +85,11 @@ Before starting, you'll need to make sure the Qualitative Annotations plug-in is
     -   Set "Browse" to "Stack"; Make sure that 'Run Measure' is selected.
 
 
-1. Add a line segment tracing the prosome of an individual.
-2. Select the relevant categories in the Multi-class window. Hit "Add to table" when ready.
-3. The ROI Manager will open when the first measurement is made. Make sure 'Show All' is selected so that it's clear which individuals have already been measured.
-4. Proceed to the next individual. Repeat until all measurements are completed.
-5. When finished, right click within the 'Annotations' window, and select 'Save as...'. This will write the data to a CSV file.
+7. Add a line segment tracing the prosome of an individual.
+8. Select the relevant categories in the Multi-class window. Hit "Add to table" when ready.
+9. The ROI Manager will open when the first measurement is made. Make sure 'Show All' is selected so that it's clear which individuals have already been measured.
+10. Proceed to the next individual. Repeat until all measurements are completed.
+11. When finished, right click within the 'Annotations' window, and select 'Save as...'. This will write the data to a CSV file.
 
 
 
