@@ -15,3 +15,7 @@ protocols/size_measurements_files/libs/quarto-html/quarto.js
 protocols/size_measurements_files/libs/quarto-html/tippy.css
 protocols/size_measurements_files/libs/quarto-html/tippy.umd.min.js
 protocols/size_measurements.html
+protocols/water_changes.html
+*.css
+*.woff
+*.js

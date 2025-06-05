@@ -1,0 +1,101 @@
+# Water Change Protocols
+Developed Summer 2025
+
+Dense copepod cultures will need to have the water changed on a semi-weekly basis. This avoids the build up of waste products, and gives us a chance to check the health of the culture. These water changes are a major component of the maintenance work required in the lab. 
+
+## Equipment: 
+- Petri Dishes
+- 1L beaker with handle
+- 64um mesh cup
+- Squeeze bottle with artificial sea water
+- Copepod Culture
+- Cut off pipette 
+
+### Water Change
+
+1. Place filter cup inside 1L beaker (Hold together)
+2. Rinse filter cup/beaker with salt water from the squeeze bottle.
+3. Slowly pour culture into filter cup; aim for sides of cup rather than pouring directly onto the mesh (Pour slowly to keep waste at the bottom of the culture)
+4. Once water goes above mesh pour a little faster
+5. Spray down sides of old culture bucket with salt water; Transfer waste remnants into petri dish to inspect
+6. Spray down sides of new culture bucket with salt water; fill new culture bucket approximately halfway with fresh artificial sea water (fully dissolved; aerated; at the correct temperature)
+7. Lift the filter cup keeping the mesh still slightly submerged and rinse down the sides with sea water from the spray bottle
+8. Slowly lift one end of the mesh out of the water and spray the copepods down with squeeze bottle to concentrate at the other end
+9. Pour contents into Petri dish using the spray bottle to rinse the inside of the filter cup; Be careful to avoid spilling copepods outside of the petri dish
+10. Move both petri dishes (main contents of culture and the waste remnants) to the scope to inspect.
+11. When inspecting the waste remnants, check for pests and parasites and that there’s not an overabundance of copepods carried over. Depending on the abundance/importance of copepods left in the waste Petri dish, copepods will be transferred back into the culture using a pipette. Waste can be discarded if not needed.  
+12. When inspecting the main petri dish: 
+    1. Check that it's the correct species
+    2. Check there’s no pests/parasites (harpacticoids and nematodes in particular)
+    3. Record level of abundance (low, medium, and high)
+    4. Record the stage composition 
+13. After inspection, use a cut off transfer pipette to take 1-2mL of culture and transfer to a new Petri dish with ~10mL seawater for imaging (see below). 
+14. Once copepods are sub-sampled, take the main contents petri dish and transfer the copepods into the fresh seawater. 
+15. Make sure to transfer the old culture label on the new culture bucket and update the generation if needed. 
+16. Feed the culture; food should be added until there’s a faint tint to the water 
+17. “Fix” the copepods in the examination Petri dish by adding ~1mL Lugols iodine. These copepods can then be imaged. 
+
+### Scanner Imaging
+
+1. Carefully move the sample to the Epson Perfection V850 (in the lab side room). Place a scale bar alongside the samples.
+2. Turn on the lab computer, then turn on the scanner (the scanner will make several loud sounds). Open the Epson Scan software. Working in this order gives the sample time to sink and stabilize.
+3. Set up the scan profile (there should be a 'petri dish' or 'well plate lid' profile saved that can be used, so no need to mess with the settings).
+4. Run the preview, select the area to scan, and then hit scan.
+5. When scanning, ensure the file will be named appropriately (Culture Name & Generation; ex - E_herd_1_F1) and is saving to the ‘Culture Images’ directory on the desktop.
+6. When the scan finishes, the image will be saved to the designated directory as a .jpg.
+7. Open scanner and remove scale bar and petri dish (make sure there is no dragging or sliding of objects on the scanner surface).
+
+### Clean up 
+
+Once completed, buckets and filter cups should be thoroughly rinsed with warm water (but no soap) and left to dry. 
+
+- If multiple transfers are being done in a day, soak the filter cups in hot water for several minutes between use
+
+### Size Measurements
+
+The program Fiji (AKA ImageJ) is used to measure prosome lengths. The scale bar is used to convert from pixel lengths to millimeters.
+
+Before starting, you'll need to make sure the Qualitative Annotations plug-in is installed and up-to-date (Help > Update > Manage Update Sites)
+
+- Select the "Qualitative Annotations" box, then hit "Apply and Close".
+- Hit "Apply Changes" and then restart Fiji.
+
+
+
+1. Open the scan in Fiji/image-J.
+2. Select the line tool and trace the scale bar. This segment must be parallel to the scale bar in order to get an accurate measurement.
+3. In the Analyze menu, select 'Set Scale'. Set 'known distance' to 1, then hit ok. The 'global' option generally does not need to be selected when working with the scans since all individuals are contained within the same image file as the scale bar.
+4. Check to make sure the measurements are recorded with just two decimal places (Analyze > Set Measurements > "Decimal" parameter = 2).
+5. Turn on the grid to help organize the sample if working with petri dishes (Analyze > Tools > Grid).
+
+    - 10 square units seems to work well for large petri dishes
+
+1. Set up the categories for the annotations (Plug-ins > Qualitative Annotations > Multi-class (drop-down)
+
+    - You'll need a CSV file that outlines the categories and options. The first row of each column will be read in as the category title. The proceeding cells under the header will be read as the different options.
+
+        | Species             | Sex       | Stage     |
+        |---------------------|-----------|-----------|
+        | Uncertain           | Uncertain | Uncertain |
+        | Centropages typicus | Female    | Juvenile  |
+        | Centropages hamatus | Male      | Adult     |
+
+        : An example CSV table to record Multi-class dropdown options
+
+    -   Set "Browse" to "Stack"; Make sure that 'Run Measure' is selected.
+
+
+1. Add a line segment tracing the prosome of an individual.
+2. Select the relevant categories in the Multi-class window. Hit "Add to table" when ready.
+3. The ROI Manager will open when the first measurement is made. Make sure 'Show All' is selected so that it's clear which individuals have already been measured.
+4. Proceed to the next individual. Repeat until all measurements are completed.
+5. When finished, right click within the 'Annotations' window, and select 'Save as...'. This will write the data to a CSV file.
+
+
+
+
+
+
+
+
+ 
