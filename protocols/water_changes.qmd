@@ -9,6 +9,7 @@ Dense copepod cultures will need to have the water changed on a semi-weekly basi
 - 64um mesh cup
 - Squeeze bottle with artificial sea water
 - Copepod Culture
+- Empty culture bucket and lid
 - Cut off pipette 
 
 ### Water Change
@@ -18,8 +19,8 @@ Dense copepod cultures will need to have the water changed on a semi-weekly basi
 3. Slowly pour culture into filter cup; aim for sides of cup rather than pouring directly onto the mesh (Pour slowly to keep waste at the bottom of the culture)
 4. Once water goes above mesh pour a little faster
 5. Spray down sides of old culture bucket with salt water; Transfer waste remnants into petri dish to inspect
-6. Spray down sides of new culture bucket with salt water; fill new culture bucket approximately halfway with fresh artificial sea water (fully dissolved; aerated; at the correct temperature)
-7. Lift the filter cup keeping the mesh still slightly submerged and rinse down the sides with sea water from the spray bottle
+6. Fill new culture bucket approximately halfway with fresh artificial sea water (fully dissolved; aerated; at the correct temperature)
+7. Lift the filter cup keeping the mesh still slightly submerged and quickly rinse down the sides with sea water from the spray bottle
 8. Slowly lift one end of the mesh out of the water and spray the copepods down with squeeze bottle to concentrate at the other end
 9. Pour contents into Petri dish using the spray bottle to rinse the inside of the filter cup; Be careful to avoid spilling copepods outside of the petri dish
 10. Move both petri dishes (main contents of culture and the waste remnants) to the scope to inspect.
