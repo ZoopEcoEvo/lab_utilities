@@ -1,0 +1,41 @@
+# CTmax Protocol
+
+This assay determines the critical thermal maxima for small ectotherms like copepods.
+
+# Supplies
+
+Plexiglass water bath
+
+Small aquarium pump
+
+50 W heating element
+
+Digital thermometer
+
+50-ml glass vials and tube rack
+
+Light source
+
+Data log sheet
+
+# Steps
+
+1.  Start filling in the log sheet (collection location and date, date of the experiment, the water bath set temperature, which water bath and thermometer you're using, etc.).
+
+2.  Fill the water bath with 2 L of water. Turn on the aquarium pump and the thermometer and place the probe in the water bath. Adjust the temperature of the water to the starting temperature (e.g. the temperature at the time of collection, the acclimation temperature, etc.) using either the heating element (if temperature needs to increase) or with ice (if temperature needs to decrease; Remember to adjust the final volume back to 2 L if ice is added).
+
+3.  While the water bath is adjusting, put 10 mL of medium (filtered lake water, artificial lake/seawater, etc). into each of the 50 mL tubes. Arrange these in the tube racks in the water bath. Tubes should be numbered and should occupy the same position in the tube rack each time.
+
+4.  When the temperature in the bath is correctly set, move the thermometer probe to one of the tubes (assigned at random). Ensure that the probe is fully submerged throughout the duration of the experiment.
+
+5.  Once the water in the tube is at the correct temperature, individual copepods are placed into each of the remaining tubes. A light source underneath the water bath can sometimes help to see copepods as they are added. It can be helpful to record information about the individual in the margins of the data sheet as they're added (are they carrying an egg sac, is there a putative species ID, etc.).
+
+6.  Copepods should be given a 5 minute resting period. Any individuals not actively moving after this resting period should be replaced or removed from the experiment.
+
+7.  After the resting period, turn on the heating element to initiate the temperature ramp. There may be slight drift in temperature during this resting period: take note of the temperature at the start of the temperature ramp on the data sheet.
+
+8.  Copepods should be closely monitored throughout the ramp. Individuals will typically sink to the bottom of the tube as they approach CTmax. CTmax is the point where an individual no longer moves in response to stimuli. A gently stimulus (creating some water movement with a transfer pipette or gently turning the tubes) should be used to determine when the individual has reached CTmax.
+
+9.  As individuals reach CTmax, record the temperature and remove the tube from the water bath. CTmax is a non-lethal assay; individuals should recover as water temperatures cool. Individuals that have died likely surpassed CTmax and should be excluded from the data.
+
+10. Once all individuals have reached CTmax unplug the heating element and the aquarium pump and turn off the thermometer.

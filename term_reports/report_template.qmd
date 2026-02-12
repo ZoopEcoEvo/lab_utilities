@@ -34,7 +34,7 @@ A couple small (but important) requirements:
     -   TERM = Either "FALL", "SPRING", or "SUMMER".
     -   Combined, the PDF file name should be something like "2025_SASAKI_FALL.pdf"
 
-The instructions above can be removed before submitting the final report. The sections below can be used for the report (just replace the text under each heading). 
+The instructions above can be removed before submitting the final report. The sections below can be used for the report (just replace the text under each heading).
 
 ------------------------------------------------------------------------
 
@@ -44,11 +44,11 @@ Provide a brief introduction to each projects covered in the report, along with 
 
 ## Data Sources
 
-Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (this works best when the repo is public, not private). Where other data is used, make sure the source is clearly described.  
+Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (this works best when the repo is public, not private). Where other data is used, make sure the source is clearly described.
 
-**Repo 1** - [**starved_ctmax**](https://github.com/ZoopEcoEvo/starved_ctmax/) 
+**Repo 1** - [**starved_ctmax**](https://github.com/ZoopEcoEvo/starved_ctmax/)
 
-This repo is for the project on XYZ. Specific data sets included in this report are:  
+This repo is for the project on XYZ. Specific data sets included in this report are:
 
 ```{r}
 
