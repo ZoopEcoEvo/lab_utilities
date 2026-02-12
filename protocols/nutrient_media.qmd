@@ -1,0 +1,49 @@
+# Nutrient Media Protocol
+
+Developed Spring 2026
+
+Nutrient medias are used for culturing phytoplankton. The protocol has two general components: **setup/sterilization** and **making the media**. 
+
+## Setup/Sterilizaiton
+
+1. Check environmental chamber and compare to standard lab requirements to determine what media needs to be made. 
+
+2. Use https://sasaki-lab.com/handbook/media_calculator to find recipe and quantities. 
+
+- Note: it is helpful to copy these onto a whiteboard to have while you are making the media
+
+3. Take ingredients out of fridge.
+
+- Note: It is helpful to organize the ingredients in a way that works for you
+
+4. Get pipettes and tips that you will use ready prior to making the media.
+
+5. Put on gloves, and apply ethanol to your gloves and the area you are working in.
+
+- Note: Do not get ethanol on or in the bunsen burner.
+
+6. Once ethanol evaporates, turn the gas nozzle to 6 o'clock and spark the bunsen burner using the flint and steel.
+
+- Note: When sparking the bunsen burner, stand away and keep your arm out of the fire.
+
+7. Once the bunsen burner is on you can adjust the gas output to keep a small and steady flame.
+
+## Making the broth
+
+1. Once bunsen burner is on, and your area and gloves are sterilized you can begin making the media.
+
+2. For each ingredient put the stock as well as the auto-claved DIH2O right beside the bunsen burner. 
+
+3. Equip the correct tip on the correct pipette, and slightly unscrew the caps of both of the bottles being used.
+
+4. Pipette up the stock by submerging the tip while pressing the button to the first stop and then releasing while submerged. Re-cap the bottle.
+
+5. Pipette the stock into the auto-claved DIH2O by holding the tip above the water and pressing the button all the way down. Discard the tip once finished.
+
+6. Repeat this for every ingredient required.
+
+7. Once complete screw the cap tightly onto the bottle, and label with the date and type of media.
+
+8. Place the bottle into the environmental chamber for storage.
+
+9. SHUT OFF THE BUNSEN BURNER, put stocks back into the refridgerator, and clean-up area.

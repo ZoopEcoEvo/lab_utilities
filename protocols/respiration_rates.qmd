@@ -1,1 +1,58 @@
 # Respiration Rate Assays
+
+This assay will measure oxygen consumption rates. It can be used to determine the temperature sensitivity of oxygen consumption as well.
+
+## Materials:
+
+Reagents:
+
+-   Water (artificial seawater, filtered seawater, dilute instant ocean, etc.)
+
+Disposables:
+
+-   Petri dishes and transfer pipettes for sorting
+
+-   Holding dishes
+
+-   Sealing film
+
+Equipment:
+
+-   Presens sensor dish readers
+
+-   Loligo Respirometry glass well plates (500 ul)
+
+-   Loligo Respirometry water baths
+
+-   Immersion circulators
+
+## Protocol:
+
+For lab acclimated animals, assays should take two days. This is to ensure standardized feeding and minimize handling stress.
+
+### Day 1
+
+-   Sort individuals into fresh water (seawater, DIO, etc.) with *ad libitum* food. Place these animals back at their 'control' temperature. Note: experiments will typically use just one type of individual (adult females, males, stage-specific juveniles, etc.).
+-   Place additional water and the glass plates at the various **test** temperatures to equilibrate overnight.
+
+### Day 2
+
+-   Fill the plate wells with the water, and leave uncovered at the **test** temperature for 30 minutes. Bubbles can be removed using a small transfer pipette or micropipetter, but care should be taken to avoid touching the sensor spot or the silicon glue.
+-   Fill and turn on the immersion circulators and set to the test temperatures.
+-   Turn on the lab computer. Set up the sensor dish readers and load the MicroResp software.
+-   Set up the experimental design in MicroResp; record the plate set up!
+-   Add the individuals to the plate wells, and then slightly overfill all wells (including the blanks). Put back at the test temperatures.
+-   Seal with the film and move them to the water baths; seal the baths and start the immersion circulators
+
+---
+
+Some assays (e.g. measurements on field-acclimated animals) emphasize reducing laboratory acclimation and should take just one day.
+
+### Day 1
+
+-   Fill the plate wells with the water, and leave uncovered at the **test** temperature for 30 minutes. Bubbles can be removed using a small transfer pipette or micropipetter, but care should be taken to avoid touching the sensor spot or the silicon glue.
+-   Fill and turn on the immersion circulators and set to the test temperatures.
+-   Turn on the lab computer. Set up the sensor dish readers and load the MicroResp software.
+-   Set up the experimental design in MicroResp; record the plate set up!
+-   Add the individuals to the plate wells, and then slightly overfill all wells (including the blanks). Put back at the test temperatures.
+-   Seal with the film and move them to the water baths; seal the baths and start the immersion circulators
