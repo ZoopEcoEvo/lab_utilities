@@ -28,7 +28,7 @@ Nutrient medias are used for culturing phytoplankton. The protocol has two gener
 
 7. Once the bunsen burner is on you can adjust the gas output to keep a small and steady flame.
 
-## Making the broth
+## Making the medium
 
 1. Once bunsen burner is on, and your area and gloves are sterilized you can begin making the media.
 
@@ -46,4 +46,4 @@ Nutrient medias are used for culturing phytoplankton. The protocol has two gener
 
 8. Place the bottle into the environmental chamber for storage.
 
-9. SHUT OFF THE BUNSEN BURNER, put stocks back into the refridgerator, and clean-up area.
+9. SHUT OFF THE BUNSEN BURNER, put stocks back into the refrigerator, and clean-up area.
