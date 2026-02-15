@@ -20,3 +20,6 @@ protocols/water_changes.html
 *.woff
 *.js
 *.pdf
+nutrient_calculator/calculator_app.R
+nutrient_calculator/rsconnect/documents/calculator_app.R/shinyapps.io/matthew-sasaki/nutrient_calculator.dcf
+*.html
