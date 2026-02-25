@@ -14,3 +14,4 @@ nutrient_calculator/rsconnect/documents/calculator_app.R/shinyapps.io/matthew-sa
 *.html
 *.afdesign
 term_reports/*.pdf
+*.psd
