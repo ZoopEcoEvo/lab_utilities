@@ -21,13 +21,13 @@ All lab members need to provide an overview of what they've been working on at t
 
 Reports should be generated with a quarto file. But other than than, the styling is up to you.
 
-For graduate students and undergraduates working on independent projects, use the format described above. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, the report should instead focus on a description of how time in the lab is allocated (day-to-day tasks, other things they've been working on, etc.). In the methods section, make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time, but will also be helpful when you're applying for jobs and need a reminder of all the transferable skills you've been working on.
+Graduate students and undergraduates working on independent projects should complete their term reports using this template. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, your only tasks is to make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time. 
 
 These reports should be rendered, and the PDF output posted to the 'summaries' channel in slack - make sure they're written so that anyone in the lab can follow along!
 
 A couple small (but important) requirements:
 
--   All code chunks should use `echo = T`. Turn on code folding if you'd prefer a more streamlined look.
+-   All code chunks should use `echo = T`. 
 -   Save the file / PDF output as YYYY_LASTNAME_TERM.pdf
     -   YYYY = Year in 4-digit format (e.g. 2025)
     -   LASTNAME = your last name in upper case (e.g. SASAKI)
@@ -44,7 +44,9 @@ Provide a brief introduction to each projects covered in the report, along with 
 
 ## Data Sources
 
-Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (this works best when the repo is public, not private). Where other data is used, make sure the source is clearly described.
+Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (repos should be public, not private - let Matt know if there's any issues there). Where other data is used, make sure the source is clearly described.
+
+The example below outlines how this section should be structured:
 
 **Repo 1** - [**starved_ctmax**](https://github.com/ZoopEcoEvo/starved_ctmax/)
 
@@ -58,11 +60,11 @@ example_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/starved_ct
 
 ## Methods
 
-Provide **detailed** methods. Ideally you would provide links to methods in your lab notebook or the lab protocol repository, along with a detailed outline of the methods used (think manuscript style methods section).
+Provide **detailed** methods. Ideally you would provide links to protocols in the lab protocol repository, along with a detailed outline of the methods used (think manuscript style methods section).
 
 ## Data Summary
 
-Clearly describe the data you've collected. Be sure to include basic elements (sample sizes, traits measured, summary stats, etc.) along with description of results or patterns. Figures are useful to include, but make sure the figures make sense in the context of this report!
+Clearly describe the data you've collected. Be sure to include basic elements (sample sizes, traits measured, summary stats, etc.) along with description of results or patterns. Figures are useful to include, but make sure the figures make sense in the context of this report! When included, figures should be generated using the data read in from the GitHub repo (i.e. write the code to make the figures here in the report). Remember, these term report .qmd files should be **independent** - you should be able to send your .qmd file to someone, and they should be able to render the document with no additional files. 
 
 ## Conclusions & Troubleshooting
 
