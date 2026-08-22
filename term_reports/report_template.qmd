@@ -2,6 +2,7 @@
 title: "Semester / Summer Report"
 format:
   typst:
+    linkcolor: "#0066cc"
     toc: true
     number-sections: false
     code-overflow: wrap
@@ -11,32 +12,37 @@ date: "`r Sys.Date()`"
 
 ### Report Instructions
 
-All lab members need to provide an overview of what they've been working on at the end of the semester / summer. This report should cover work across any and all projects (you don't need a separate report for each one). The report should include:
+Graduate students and undergraduates working on independent projects need to provide an overview of what they've been working on at the end of the semester / summer. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, your only tasks is to make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time.
 
--   A short introduction to each project\
--   The relevant hypotheses\
--   Detailed methods (or progress on method development)\
--   An overview of data collected\
--   A section on main conclusions, troubleshooting, and next steps
+Reports should be generated with this quarto file, and need to be independent (no additional files needed to render the document). The styling/aesthetics are up to you.
 
-Reports should be generated with a quarto file. But other than than, the styling is up to you.
+This report should cover work across any and all projects (you don't need a separate report for each one). The report should include:
 
-Graduate students and undergraduates working on independent projects should complete their term reports using this template. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, your only tasks is to make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time. 
+- A short introduction to each project\
+- The relevant hypotheses\
+- Detailed methods (or progress on method development)\
+- An overview of data collected\
+- A section on main conclusions, troubleshooting, and next steps
 
-These reports should be rendered, and the PDF output posted to the 'summaries' channel in slack - make sure they're written so that anyone in the lab can follow along!
+Once completed (and the draft is approved by Matt), these reports should be rendered and both the qmd file and the PDF output posted to the 'term-reports' channel in slack - make sure they're written so that anyone in the lab can follow along!
 
 A couple small (but important) requirements:
 
--   All code chunks should use `echo = T`. 
--   Save the file / PDF output as YYYY_LASTNAME_TERM.pdf
-    -   YYYY = Year in 4-digit format (e.g. 2025)
-    -   LASTNAME = your last name in upper case (e.g. SASAKI)
-    -   TERM = Either "FALL", "SPRING", or "SUMMER".
-    -   Combined, the PDF file name should be something like "2025_SASAKI_FALL.pdf"
+- All code chunks should use `echo = T`.
+- Save the file / PDF output as YYYY_LASTNAME_TERM.pdf
+  - YYYY = Year in 4-digit format (e.g. 2025)
+  - LASTNAME = your last name in upper case (e.g. SASAKI)
+  - TERM = Either "FALL", "SPRING", or "SUMMER".
+  - Combined, the PDF file name should be something like "2025_SASAKI_FALL.pdf"
 
 The instructions above can be removed before submitting the final report. The sections below can be used for the report (just replace the text under each heading).
 
 ------------------------------------------------------------------------
+
+```{r message = F, warning = F, echo=T}
+
+library(tidyverse)
+```
 
 ### Component Projects
 
@@ -44,7 +50,7 @@ Provide a brief introduction to each projects covered in the report, along with 
 
 ## Data Sources
 
-Make sure this section is clearly organized, and should include at least two sections - where is the relevant project data stored (i.e. which GitHub repos are the project data stored in?), and which specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (repos should be public, not private - let Matt know if there's any issues there). Where other data is used, make sure the source is clearly described.
+Make sure this section is clearly organized. This will typically include at least two sections detailing the relevant project data is stored (i.e. which GitHub repos are the project data stored in?), and the specific data files are you going to use in the report. Whenever possible, data should be read in from GitHub (repos should be public, not private - let Matt know if there's any issues there). Where other data is used, make sure the source is clearly described. Note: you may need a combination of the raw data and the compiled data (i.e. the files in the Output directory).
 
 The example below outlines how this section should be structured:
 
@@ -60,11 +66,24 @@ example_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/starved_ct
 
 ## Methods
 
-Provide **detailed** methods. Ideally you would provide links to protocols in the lab protocol repository, along with a detailed outline of the methods used (think manuscript style methods section).
+Provide **detailed** methods. Ideally you would provide links to protocols in the lab protocol repository (this is your chance to make sure your protocols are uploaded/updated), along with a detailed outline of the methods used (think manuscript style methods section).
 
 ## Data Summary
 
-Clearly describe the data you've collected. Be sure to include basic elements (sample sizes, traits measured, summary stats, etc.) along with description of results or patterns. Figures are useful to include, but make sure the figures make sense in the context of this report! When included, figures should be generated using the data read in from the GitHub repo (i.e. write the code to make the figures here in the report). Remember, these term report .qmd files should be **independent** - you should be able to send your .qmd file to someone, and they should be able to render the document with no additional files. 
+Clearly describe the data you've collected. Be sure to include basic elements (sample sizes, traits measured, summary stats, etc.) along with description of results or patterns.
+
+When included, figures should be generated using the data read in from the GitHub repo (i.e. write the code to make the figures here in the report). Remember, these term report .qmd files should be **independent** - you should be able to send your .qmd file to someone, and they should be able to render the document with no additional files.
+
+```{r fig.width=8, fig.height=5}
+
+ggplot(example_data, aes(x = rep_day, y = ct_max, colour = diet)) + 
+  geom_point() + 
+  labs(x = "Day", 
+       y = "CTmax (°C)") + 
+  theme_bw(base_size = 24) + 
+  theme(panel.grid = element_blank())
+
+```
 
 ## Conclusions & Troubleshooting
 
