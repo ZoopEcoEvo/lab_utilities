@@ -1,0 +1,171 @@
+---
+title: "Summer Report"
+format:
+  typst:
+    linkcolor: "#0066cc"
+    toc: true
+    number-sections: false
+    code-overflow: wrap
+author: "Nathan Gaffin"
+date: "`r Sys.Date()`"
+---
+
+```{r message=F, warning=F, echo =F}
+
+library(tidyverse)
+
+```
+
+## Component Projects
+
+This summer I worked on a project examining the Local Adaptation of the Rate of Acclimation of thermal tolerance in *Skistodiaptomus pallidus* (Skisto_LARA). This project was started in the spring semester of 2026, and sets the foundation for a potential masters thesis project. By the end of the century, heatwaves are projected to increase dramatically in temperature and duration. Heatwaves today can worsen drought conditions, increase the likelihood of wild fires, hurt various sectors and industries like agriculture and energy, and devastate ecosystems. These consequences will likely be drastically enhanced by the heatwaves that we are likely to experience by the end of the century. Plasticity and thermal acclimation could potentially mitigate these consequences.
+
+The effects of acclimation can be described by two key components: acclimation capacity (the magnitude of change once acclimation has been completed), and the rate of acclimation (ROA; the rate of change until acclimation capacity is reached). Capacity and rate of acclimation have been observed to have an inverse relationship across many different species - species either exhibit a rapid or large response to changes in the environment but not both (Burton & Einum, 2025). This relationship has never, however, been explored across populations within the same species. In this project I am working with *S*. *pallidus*, a widespread, relatively warm-adapted, freshwater calanoid copepod. I am using two different populations of *S*. *pallidus* (Ochsner Pond from Ohio & Centennial Park from Colorado) to compare the relationship between acclimation capacity and the rate of acclimation across populations for the first time.
+
+This project is asking two major questions:
+
+1.  How does acclimation capacity compare across populations?
+2.  Is there a relationship between acclimation capacity and rate of acclimation across populations?
+
+My hypotheses are:
+
+1.  The acclimation capacity will be higher in the population with a higher average surface temperature.
+2.  The acclimation capacity and the rate of acclimation will have a negative relationship.
+
+## Data Sources
+
+All of the data used in this project is stored in the Skisto_LARA repository in the ZoopEcoEvo github.
+
+**Repo 1** - [**Skisto_LARA**](https://github.com/ZoopEcoEvo/Skisto_LARA/)
+
+Specific data sets included in this report are: CTmax data, Parameter data, and CTmax contrast data.
+
+```{r message = F, warning = F, echo=T}
+
+ctmax_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/Skisto_LARA/refs/heads/main/Output/Output_data/ctmax_data.csv")
+
+acc_params = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/Skisto_LARA/refs/heads/main/Output/Output_data/acc_params.csv")
+
+contrasts = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/Skisto_LARA/refs/heads/main/Output/Output_data/contrasts.csv")
+
+```
+
+## Methods
+
+*S. pallidus* were collected from field and brought to lab and kept in culture for several generations. To begin each experiment, 46 adult females are selected from each culture (Ochsner Pond "OP," and Centennial Park "CP") and are split evenly into either a control dish or a warm dish with 150mL of dilute instant ocean (1 g per liter) and \~0.5mL-1.5mL of *Cryptomonas ozolini* for food. These four dishes correspond to the treatment groups: OP+Control, CP+Control, OP+Warm, and CP+Warm. Each dish contains 23 individuals (meaning a total of 92 individuals were used in each replicate). Each dish is placed into the control (16°C) incubator overnight, along with a temperature sensor to closely monitor the internal temperatures of the incubators. A second incubator is set to the warming treatment (22°C). The incubator assigned to warming and control conditions rotates during each experimental replicate.
+
+After the overnight pre-acclimation phase, 2-3 animals from each dish are used to run a CTmax assay (**Protocol** - [**CTmax Assay**](https://github.com/ZoopEcoEvo/lab_utilities/blob/main/protocols/ctmax_assay.qmd)). Tube assignments are randomized using an R script (**Script** - [**Tube Assignment**](https://github.com/ZoopEcoEvo/Skisto_LARA/blob/main/Scripts/00_tube_assignments.R)). CTmax are recorded for each individual as the temperature where the individual loses function during a temperature ramp. These CTmax values provide an important baseline value (CTmax before acclimation begins).
+
+After the initial assay, each dish is placed in their respective incubator. CTmax values are then measured on acclimation day 0, 1, 2, 3, 4, 7, and 10. Copepods are fed on day 4 and also have their water changed.
+
+## Data Summary
+
+Trait measured: CTmax (°C)
+
+Sample Size: 340 individuals
+
+Completed Replicates: 4
+
+```{r fig.width=6, fig.height=6, message=F, echo =F}
+#| label: fig-ctmax
+#| fig-cap: "CTmax (°C) over time (Acclimation hours) for both the control (blue) and warm (red) treatments and both CP and OP"
+
+ctmax_data %>% 
+  filter(ctmax > 34) %>% 
+  mutate(acc_hours = acc_hours + 0.1) %>% 
+  ggplot(aes(x = acc_hours, y = ctmax, colour = treatment)) + 
+  facet_grid(pop ~ .) +
+  geom_point(size = 2) + 
+  geom_smooth(method = "lm", formula = y ~ log(x)) + 
+  scale_colour_manual(values = c("control" = "royalblue",
+                                 "warming" = "brown2")) + 
+  labs(
+    x = "Acclimation Hour", 
+    y = "CTmax (°C)"
+  ) +
+  theme_bw(base_size = 18) + 
+  theme(
+    legend.position = "bottom", 
+    panel.grid = element_blank()
+  )
+```
+
+Figure 1 shows that in both populations the control group's CTmax stays about the same throughout the experiment, while both warm groups exhibit an acclimation response, with CTmax increasing over time. In this figure, we can see that the OP starts with a higher initial CTmax than CP, but that after acclimation is completed, the two populations have a similar CTmax.
+
+```{r fig.width=10, fig.height=6, message=F, echo = F}
+#| label: fig-acclimation-parameters
+#| fig-cap: "Graph of the model contrasts (Warming - Control; °C) over time (Acclimation Day) for both CP and OP"
+
+param_data = contrasts %>%
+  group_by(pop) %>% 
+  arrange(acc_day) %>% 
+  mutate(acc_day = if_else(acc_day == 0, 0.01, acc_day)) 
+
+cp_params = filter(acc_params, pop == "CP")
+op_params = filter(acc_params, pop == "OP")
+
+# Create a new data frame with predicted values
+acc_day <- seq(0, max(param_data$acc_day), length.out = 100)
+cp_pred <- cp_params$z_asymp*(1-exp(-cp_params$lambda*acc_day))
+op_pred <- op_params$z_asymp*(1-exp(-op_params$lambda*acc_day))
+
+predictions = data.frame(acc_day, 
+                         cp_pred, 
+                         op_pred) %>% 
+  pivot_longer(cols = c(cp_pred:op_pred), 
+               names_to = c("pop", NA), 
+               names_sep = "_", 
+               values_to = "pred") %>% 
+  mutate(pop = toupper(pop))
+
+param_data %>% 
+  drop_na(estimate) %>% 
+  ggplot(aes(x = acc_day, y = estimate)) + 
+  facet_wrap(pop~.) + 
+  geom_hline(yintercept = 0) +
+  geom_hline(data = acc_params, aes(yintercept = z_asymp),
+             colour = "grey") + 
+  geom_errorbar(aes(ymin = estimate - SE, ymax = estimate + SE), 
+                linewidth = 1, width = 0.3) + 
+  geom_point(size = 3) + 
+  geom_line(data = predictions, aes(x = acc_day, y = pred),
+            colour = "blue",
+            linewidth=1.5)+
+  labs(x = "Acc. Day", 
+       y = "Contrast (Warming - Control; °C)") + 
+  theme_bw(base_size = 24) + 
+  theme(panel.grid = element_blank(), 
+        legend.position = "bottom")
+
+```
+
+Table 1:
+
+| Population | Number of contrasts | Z (asymptote) | ARR (acclimation response ratio) | Lambda (rate) |
+|---------------|---------------|---------------|---------------|---------------|
+| CP | 9 | 0.79 | 0.13 | 0.58 |
+| OP | 8 | 0.51 | 0.08 | 25.2 |
+
+<!--# Manually inputting the values in a table is fine for this report, but future instances should be code-based, to save you from having to update values as analyses are refined, etc. -->
+
+Figure 2 shows the contrast overtime between the warm acclimation groups and control groups in both populations (the difference in CTmax between the warming and control group for each population on each day of the experiment).
+
+We can use a linear mixed effects model: CTmax as a function of treatment, population, and acclimation day (with all possible interactions) to calculate estimated marginal means for each treatment and population on each day. We can then calculate a contrast for each day (Warm - Control), a positive contrast would indicate an increase in the CTmax of the warm group compared to the control group.
+
+Burton and Einum describe an approach to measure both the acclimation capacity and rate of acclimation from a timeseries of CTmax values. Their approach describes fitting the data to the following model: Zt = Za \* (1-e\^(−λt))
+
+In this model, Zt is the effect of acclimation at a certain time t, Za is the acclimation capacity (asymptotic value), and lambda is the rate of acclimation. In the Burton and Einum study, data sets had to be transformed such that measurements at the different time points were all relative to the first CTmax measurements (e.g. all time series start at zero and measure the change relative to the start point). We then estimated these parameters using the contrasts from the linear mixed effects model (Burton & Einum, 2025).
+
+Table 1 shows the parameters that come from fitting a logistic model to the contrasts. In Table 1 acclimation capacity (z_asymp) of CP is 0.79°C, which is higher than OP's 0.51°C, but on the other hand OP's rate of acclimation (lambda) is 25.2/day which is much higher than CP's 0.58/day. These results indicate CP has a higher acclimation capacity than OP, but OP reaches that capacity at a much faster rate. This suggests an inverse relationship between acclimation capacity and rate of acclimation in these two populations.
+
+## Conclusions & Troubleshooting
+
+In both populations the CTmax of the control group remains constant while the CTmax of the warm group increases, meaning both populations exhibited an acclimation response. We hypothesized that the acclimation capacity would be higher in the population with a higher average temperature. Using the CHELSA climatological temperature dataset, we determined CP's average summer surface temperature was 20.92°C and OP's average summer surface temperature was 23.22°C. CP had a lower average summer surface temperature and a higher acclimation capacity, this result was unexpected. It is only two populations, so definite conclusions can not be made, but this would suggest a negative relationship between acclimation capacity and average surface temperature in *S. pallidus.*
+
+Based off of literature from Burton and Einum, we also hypothesized that the acclimation capacity and the rate of acclimation would have an inverse relationship. CP had an acclimation capacity of 0.79°C, and a rate of acclimation of 0.58/day, while OP had an acclimation capacity of 0.54°C and a rate of acclimation of 25.2/day. This was the expected result and suggests an inverse relationship between acclimation capacity and rate of acclimation in *S. pallidus.*
+
+Overall, our results indicate that both the acclimation capacity and rate of acclimation can differ across populations. This is a highly novel result. Further, this variation conforms to the predicted negative relationship observed across different species. This suggests that a common mechanism may be driving patterns in the evolution of acclimation dynamics across multiple levels of biological organization, and highlights that population-level data on acclimation dynamics is an important but under-explored component of predictions regarding vulnerability to climate change.
+
+## Next Steps
+
+By the end of the summer, the final replicate will be completed. Within the next year, I plan on replicating this project for two additional populations of *S. pallidus* to provide a robust comparison of acclimation capacity and rate of acclimation across populations. The data from this project lays the foundation for a manuscript we will prepare over the next year.

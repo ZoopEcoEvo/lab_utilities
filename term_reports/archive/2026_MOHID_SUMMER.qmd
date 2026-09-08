@@ -1,0 +1,68 @@
+---
+title: "Semester / Summer Report"
+format:
+  typst:
+    linkcolor: "#0066cc"
+    toc: true
+    number-sections: false
+    code-overflow: wrap
+author: "Zeba Mohid"
+date: "`r Sys.Date()`"
+---
+
+------------------------------------------------------------------------
+
+```{r message = F, warning = F, echo=T}
+
+library(tidyverse)
+```
+
+This report covers a single project, STAMP (*Skistodiaptomus* Thermal Acclimation with MicroPlastics), conducted as a standard laboratory project. STAMP investigates how microplastic exposure affects thermal tolerance in the freshwater copepod *Skistodiaptomus pallidus*. This topic is becoming increasingly important because microplastic pollution and rising water temperatures are major stressors affecting freshwater ecosystems. These two stressors are also expected to occur together more frequently as plastic pollution continues to accumulate and rise in aquatic environments that are already experiencing warming due to climate change. Although the individual effects of temperature and microplastic exposure on aquatic organisms have been studied to some degree, not much is known about how these two stressors interact, particularly regarding whether microplastic exposure can change an organism's response to thermal stress. Copepods are important components of aquatic food webs, making them useful organisms for measuring these interactions because changes in their thermal tolerance could affect larger communities and ecosystem dynamics under climate change.
+
+Microplastic exposure can cause physiological stress and activate cellular stress-response mechanisms. These responses may help an organism cope with additional environmental stress. That means that exposure to microplastics could potentially prepare copepods to better tolerate later heat stress. Based on this idea, microplastic exposure may increase thermal tolerance either by allowing copepods to withstand higher temperatures or by improving their ability to adjust to warmer conditions over time.
+
+STAMP addresses two main questions: how does microplastic exposure affect the upper thermal limits of *S. pallidus*, and do microplastics increase a copepod's ability to acclimate to warming temperatures? To address these questions, it is hypothesized that *S. pallidus* exposed to microplastics will have higher upper thermal limits than copepods that are not exposed to microplastics. It is also hypothesized that microplastic exposure will increase the copepods' ability to acclimate to warmer temperatures. Together, these hypotheses predict that microplastic exposure may change how copepods respond to heat stress by either increasing their critical thermal maximum or improving their ability to adjust their thermal tolerance during acclimation to warmer temperatures.
+
+## Data Sources
+
+This repo is for STAMP. It can be found in the ZoopEcoEvo github. The specific data sets included in this report are CTmax data from the last 2 replicates
+
+**Repo 1** - [**STAMP**](https://github.com/ZoopEcoEvo/STAMP)
+
+```{r}
+
+STAMP = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/STAMP/refs/heads/main/Output/Output_data/ctmax_data.csv")
+
+```
+
+## Methods
+
+This experiment used *Skistodiaptomus pallidus* (generation F\>0) collected from the Lowell Canal population, with four treatments: control (26°C), microplastics (26°C & microplastics), warming (32°C), and combined (32°C & microplastics). On set up day, animals are collected from the field and brought to the lab, and 32 adult females are selected and sorted into each treatment, with extras taken to account for potential background mortality. Each treatment has 100 mL of dilute instant ocean and 1 mL of *Cryptomonas ozolini* (food for copepods). The two treatments that have microplastics are separately given a concentration of 1uL of microplastics before being put in their corresponding incubators. The animals are then left to acclimate for 7 days in their incubators. Copepods are fed on day 0 (set up day), day 3, and day 5. On day 7, four CTmax assays (**Protocol** - [**CTmax Assay**](https://github.com/ZoopEcoEvo/lab_utilities/blob/main/protocols/ctmax_assay.qmd)) are run (2 at a time), with all tubes randomized using a randomizing script (**Script** - [**Tube Assignment**](https://github.com/ZoopEcoEvo/Skisto_LARA/blob/main/Scripts/00_tube_assignments.R)). After all CTmax assays are complete, each individual is photographed using a camera attached to an inverted compound microscope for body length measurements (**Protocol** - [**Imaging**](https://github.com/ZoopEcoEvo/lab_utilities/blob/main/protocols/size_measurements.qmd)).
+
+## Data Summary
+
+Comparing CTmax across treatments, the control and microplastics groups showed similar median thermal limits (\~37.3–37.4°C), with their boxes overlapping substantially, suggesting microplastic exposure alone did not meaningfully shift upper thermal limits. The microplastics treatment did show greater variability than control, including one low outlier near 36°C. In contrast, both the warming and combined treatments showed higher thermal limits than control and microplastics, with combined (median \~39.0°C) slightly exceeding warming (median \~38.6°C). The combined treatment also had the smallest range of individual responses of any group, indicating that treatment has a more consistent thermal response when copepods were exposed to both stressors simultaneously.
+
+```{r fig.width=6, fig.height=6, echo=T}
+#| fig-cap: "A boxplot showing CTmax values for the four treatments"
+
+STAMP %>% 
+  mutate(treatment = fct_relevel(treatment, "control", "microplastics", "warming", "combined")) %>% 
+ggplot(aes(x = treatment, y = ctmax)) + 
+  geom_boxplot() + 
+  labs(x = "Treatment", 
+       y = "CTmax (°C)") + 
+  theme_bw(base_size = 18) + 
+  theme(panel.grid = element_blank())
+ 
+```
+
+## Conclusions and Troubleshooting
+
+The data from this study offer partial support for the project's hypotheses. Hypothesis 1 predicted that microplastic exposure alone would raise the upper thermal limits of *S. pallidus* relative to untreated animals, but this was not supported: the control and microplastics treatments showed nearly identical median CTmax values, with substantially overlapping ranges. Hypothesis 2 predicted that microplastic exposure would increase copepods' ability to acclimate to warming, and this received some support. The combined treatment (microplastics + warming) had a slightly higher median CTmax than the warming-only treatment, suggesting that having 2 stressors may have helped them have a higher thermal limit.
+
+The similarity between the control and microplastics treatments was initially unexpected, since the hypotheses predicted a clear difference. On reflection, however, this likely reflects the microplastic concentration used, which was kept low to match more natural levels of microplastic concentrations. Given these levels are still typically relatively low, this level of exposure may not produce a measurable physiological effect on its own.
+
+## Next Steps
+
+Future work should focus on completing additional experimental replicates for this project. Since only two replicates have been run so far, additional replicates would help confirm whether the patterns observed here are consistent. Thee patterns being: The lack of an independent microplastics effect and the boost seen in the combined stressor treatmentor or whether the trends shift once more data is added. This important given that these animals are field-collected F0 generation, meaning each replicate draws from a genetically and physiologically distinct group of wild individuals rather than a established lab population.

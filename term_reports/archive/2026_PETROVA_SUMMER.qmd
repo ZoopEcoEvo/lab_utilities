@@ -1,0 +1,108 @@
+---
+title: "Summer 2026 Term Report"
+format:
+  typst:
+    linkcolor: "#0066cc"
+    toc: true
+    number-sections: false
+    code-overflow: wrap
+author: "Taisiya Petrova"
+date: "2026-08-20"
+---
+
+------------------------------------------------------------------------
+
+```{r message=F, warning=F}
+
+library(tidyverse)
+
+```
+
+## Component Projects
+
+I worked on two projects this summer. The first project examined zooplankton community composition from sites in the Gloucester area. This project looked at how the prevalence of different species changes over space and time. The project is a standard lab project. We had three main hypotheses:
+
+1.  Cold-adapted species will be more prevalent further from shore
+2.  Cold-adapted specie will be more prevalent in colder months
+3.  Larger species and individuals will be more prevalent in colder months
+
+The second project examined how starting temperature affects observed upper thermal limits of (measured as the Critical Thermal Maximum; CTmax). This project tests hypotheses from a 2007 paper by Terblanche et al., who found that CTmax increased with the starting temperature used. We are testing whether this pattern holds true for copepods as well. We will be preparing a manuscript for publication with this data.
+
+## Data Sources
+
+All data for both projects are maintained in GitHub repositories:
+
+**Repo 1** - [nearshore_planks](https://github.com/ZoopEcoEvo/nearshore_planks/)
+
+**Repo 2** - [CTmax_start_temp](https://github.com/ZoopEcoEvo/CTmax_start_temp/)
+
+This report will describe data only for the CTmax start temperature project. Specific data sets included in this report are:
+
+```{r message = F, warning = F, echo=T}
+
+ctmax_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/CTmax_start_temp/refs/heads/main/Output/Output_data/trait_data.csv")
+
+```
+
+## Methods
+
+### Nearshore Zooplankton:
+
+#### Zooplankton Counts:
+
+Prepare your data sheet. You will typically only need to load the species list, but there may be additional metadata fields required. Retrieve the sample from the store room; Mix the sample by gently inverting several times. Quickly subsample using a cut-off transfer pipette and add to the counting chamber; typically only 0.75 - 2.25 mL are needed. Aim for \>100 but \<300 individuals. Keep track of how much you add; Record the volume added in the data sheet (transfer pipettes are cut off at 0.25mL, going to the top mark will give a volume of 0.75mL). Add DI water to the chamber and let rest. Starting at one end of the chamber, scan the entire chamber. Update the counter as you go. For copepods, identify to the species level for adults, and for juveniles, identify to the genus level; make a best guess for species. Use proxies for other categories(i.e. gastropod larvae are recorded as juveniles, and fish eggs as nauplii). Only count each animal once, and avoid counting moults. For specimens you are unsure about, remove the individuals and put aside into a 6-well plate for dissection and identification. Do not enter these into the counter yet. Once finished with scanning the chamber, check copepod count(if \<100 make note in lab notebook). Group your unidentified specimens to morphological groups; dissect and identify. Once identified, update the counter as needed. Mix the sample in the Falcon tube again and then pour between half and the entire sample into a large petri dish. Examine for singletons; record these in the `singleton.csv` data file. Return the remaining sample to the tube using a funnel; spray down the petri dish with ethanol if needed. Top off the chamber with DI water. Export the resulting data sheet and add to your project folder in the `bogorov_counts` directory. Do not rename the file - it should have the format `SITE-CODE_COUNT-DATE.csv`. If there were any species/groups added, export the list. Replace the old version with this new, updated list. The full protocol can be found here: [Bogorov_count_protocol](https://github.com/ZEAL-Notebooks/Taisiya_Petrova_Notebook/blob/main/Protocols/Bogorov_Counts.md).
+
+### CTmax starting temperature:
+
+#### Plankton tow:
+
+Drop a 200uL student net into the body of water that is being sampled and let it sink, before casting it out. Walk along the edge of the sampling site, making sure to keep the net submerged underwater, doing 2-4 passes to make sure the sample is of adequate density. Draw up the net, and using a funnel move sample into a 1L glass bottle. Keep casting and drawing the net until the 1L bottle is full to the mark. Use a plastic bucket on a rope to draw up some water, and use the conductivity meter to record salinity and temperature of the water in a field notebook. Additionally, record weather conditions and air temp during collection. The protocol can also be found here:[Plankton_tow_protocol](https://github.com/ZEAL-Notebooks/Taisiya_Petrova_Notebook/blob/main/Protocols/Plankton_Tow.md).
+
+#### CTmax Assays:
+
+Start filling in the log sheet (collection location and date, date of the experiment, the water bath set temperature, which water bath and thermometer you're using, etc.). Fill the water bath with 2 L of water. Turn on the aquarium pump and the thermometer and place the probe in the water bath. Adjust the temperature of the water to the starting temperature according to treatment (13C, 16C, 19C, 22C, 25C, 28C) using either the heating element (if temperature needs to increase) or with ice (if temperature needs to decrease; Remember to adjust the final volume back to 2 L if ice is added). While the water bath is adjusting, put 10 mL of DIO (dilute Instant Ocean solution) into each of the 50 mL tubes. Arrange these in the tube racks in the water bath. Tubes should be numbered and should occupy the same position in the tube rack each time. When the temperature in the bath is correctly set, move the thermometer probe to one of the tubes (assigned at random). Ensure that the probe is fully submerged throughout the duration of the experiment. Once the water in the tube is at the correct temperature, individual copepods are placed into each of the remaining tubes. A light source underneath the water bath can sometimes help to see copepods as they are added. It can be helpful to record information about the individual in the margins of the data sheet as they're added (are they carrying an egg sac, is there a putative species ID, etc.). Copepods should be given a 5 minute resting period. Any individuals not actively moving after this resting period should be replaced or removed from the experiment. After the resting period, turn on the heating element to initiate the temperature ramp. There may be slight drift in temperature during this resting period: take note of the temperature at the start of the temperature ramp on the data sheet. Copepods should be closely monitored throughout the ramp. Individuals will typically sink to the bottom of the tube as they approach CTmax. CTmax is the point where an individual no longer moves in response to stimuli. A gently stimulus (creating some water movement with a transfer pipette or gently turning the tubes) should be used to determine when the individual has reached CTmax. As individuals reach CTmax, record the temperature and remove the tube from the water bath. CTmax is a non-lethal assay; individuals should recover as water temperatures cool. Individuals that have died likely surpassed CTmax and should be excluded from the data. Once all individuals have reached CTmax unplug the heating element and the aquarium pump and turn off the thermometer. The full base protocol can be found here: [CTmax_assay_protocol](https://github.com/ZoopEcoEvo/lab_utilities/blob/main/protocols/ctmax_assay.qmd).
+
+## Data Summary
+
+| Project | Sample Sizes | Col3 |
+|------------------------|------------------------|------------------------|
+| Nearshore Zooplankton | Several samples with 100-870 individuals each | Analyses focused on just one site (Halibut Point) |
+| CTmax Start Temperature | 79 CTmax measurements | 5 individuals per temperature, 30 individuals per population |
+
+### CTmax start temp:
+
+Three populations have been used:
+
+- Lab-acclimated adult female *S. pallidus* (Centennial Park)
+
+- Field collected *S.pallidus* (Lowell Canals)
+
+- Field-collected *L. siciloides*.
+
+Both *S. pallidus* populations were given 3 treatments(13°C, 16°C, 19°C, 22°C, 25°C, 28°C). The *L. siciloides* population had 4 treatments(13°C, 16°C, 25°C, 28°C) with the remaining two treatments disqualified due to temperature fluctuations as a result of a power outage. Across all three populations, starting temperature does not seem to have an effect on CTmax.
+
+```{r fig.width=10, fig.height=10, message=F, fig.align='center', fig.cap= "CTmax based on starting temperature across populations"}
+
+ctmax_data %>% 
+ggplot(aes(x = start_temp, y = ctmax)) + 
+  facet_grid(species~lab_acc) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  labs(x = "Start Temp. (°C)",
+       y = "CTmax (°C)") + 
+  theme_bw(base_size = 24) + 
+  theme(panel.grid = element_blank())
+
+```
+
+## Conclusions & Troubleshooting
+
+The nearshore Gloucester area ID project has proven more difficult than anticipated. Some of the samples have many imperfect specimens that make identification difficult and slow. From the samples that have already been done, there have been differences in species prevalence/ size prevalence, though no body size measurements have been done so far unlike what was originally planned. The compilation of ID literature has been going well, though not always entirely helpful as some information is missing, like with juveniles. The guide could benefit from real-life examples to draw from like preserved plates, though that may be difficult to do/unrealistic. In terms of hypotheses, the data collected so far seems to be too unreliable/preliminary to draw any conclusions off of.
+
+For CTmax start temp, there were issues with lab storage procedures when experimenting on field-collected *S. pallidus*, where the organisms were improperly acclimated by accident on one of the testing days. However, it seems like it did not have much of an effect on the final results. The dataset is so far incomplete, but the current data points to previous literature not being applicable to our field of study/ protocols, as starting temps did not show correlation with a difference in CTmax. Additionally, it further proves our assumption that acclimation has a greater effect on CTmax than starting temp, as lab-grown individuals kept at 16C had a lower CTmax than field-collected individuals, which were collected at higher water temperatures such as 25C.
+
+## Next Steps
+
+For the nearshore ID project, the next step is reading and digital resources, the flow chart will need additional resources for a more robust ID structure, like a list of all key features for each species and sex. Resources for juveniles will also be added wherever possible. Additionally, a chart for cyclopoids and other families of copepods should be made/finished in order to have a more comprehensive set of plankton ID resources. Size measurements could also be a good next step, in order to look at size differences.
+
+For the starting temp CTmax project, experiments are underway for the lab-acclimated *L. siciloides*. Additionally, there is a chance other species besides *S. pallidus* and *L. siciloides* will be studied to create a more robust dataset. Other next steps include drafting a paper outline and reading papers in order to find references for our publication.

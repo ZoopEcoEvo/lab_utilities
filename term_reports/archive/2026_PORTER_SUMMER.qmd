@@ -1,0 +1,148 @@
+---
+title: "Summer Report 2026"
+format:
+  typst:
+    linkcolor: "#0066cc"
+    toc: true
+    number-sections: false
+    code-overflow: wrap
+author: "Lindsey Porter"
+date: "`r Sys.Date()`"
+---
+
+```{r message = F, warning = F, echo=T}
+
+library(tidyverse)
+```
+
+## Component Projects
+
+The first lab project I worked on was a continuation of last semester's work. "The Copepods of the Woods Hole Region Massachusetts", written by Charles Branch Wilson, describes copepod occurrence throughout the Woods Hole region and Cape Cod area in the 1880s. This information can be used to observe historical ecology in a neglected timescale, as there are few ecological records from this period. Information on species from the Wilson book was furthered this semester by categorizing species of interest by climate affinity. The climate affinity, defined by the lowest observed latitude found in literature, can be used to classify copepod species as cold, temperate, or warm. This information is essential to analyze changes in pattern of copepod distribution between the past and present. Ultimately, we hypothesize that warm-adapted copepod species occurrence will have increased and cold-adapted copepod species occurrence will have decreased since the 1880s.
+
+Additionally, I also worked on a lab project regarding start temperature for CTmax experiments. In the paper "Critical thermal limits depend on methodological context" (Terblanche et al. 2007), it is argued that the maximum critical thermal limit of organisms (CTmax) is influenced by the start temperature of the experiment. However, this paper uses terrestrial insects to inspect this topic, and aquatic invertebrates react differently. By varying start temperature and conducting CTmax assays on multiple populations, the goal was to determine if the CTmax of copepods are influenced by start temperature. We hypothesize that the CTmax of copepods are not affected by varying start temperature.
+
+## Data Sources
+
+**Repo 1** - [**historical_copepods**](https://github.com/ZoopEcoEvo/historical_copepods.git)
+
+This repo is for the historical ecology project about copepod species occurrence in Cape Cod. Specific data sets included in this report are:
+
+```{r}
+
+database = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/historical_copepods/refs/heads/main/Output/Output_data/data.base.csv")
+
+```
+
+**Repo 2** - [**CTmax_start_temp**](https://github.com/ZoopEcoEvo/CTmax_start_temp.git)
+
+This repo is for the project about CTmax starting temperatures. Specific data sets included in this report are:
+
+```{r}
+
+ctmax_data = read.csv("https://raw.githubusercontent.com/ZoopEcoEvo/CTmax_start_temp/refs/heads/main/Output/Output_data/trait_data.csv")
+
+```
+
+## Methods
+
+**Climate Affinity of Historical Copepods:**
+
+Information about the geographic range of species from the Wilson book was determined by cross-referencing several sources:
+
+- Wilson, M.S. & H.C. Yeatman. 1959. Free-Living Copepoda. \[in\] W.T. Edmondson (ed.). Ward & Whipple Fresh-Water Biology, 2nd edition
+
+- Reid, J.W. & C.E. Williamson, Copepoda. \[in\] J.H. Thorp & A.P. Covich (eds.). Ecology and Classification of North American Freshwater Invertebrates, 3rd edition: 829-899.
+
+- “GBIF" (https://www.gbif.org/)
+
+  - Note: GBIF was only used when the occurrence shown was either DNA sequenced or a preserved specimen from the Smithsonian records
+
+From these sources, the lower and upper latitudinal range limits were determined for each species. Each species was classified as have either a C (cold), T (temperate), or W (warm) affinity:
+
+- Cold Affinity: lower latitude limit in New England or higher.
+- Temperate Affinity: lower latitude limit found between New England and North Carolina
+- Warm Affinity: lower latitude limit below North Carolina
+
+**Ctmax Start Temp:**
+
+The main protocol for a CTmax assay is outlined [here](https://github.com/ZoopEcoEvo/lab_utilities/blob/main/protocols/ctmax_assay.qmd).
+
+For each group of copepods (*S. pallidus* lab reared, *L. siciloides* field, etc.), the start temperatures of 13°C, 16°C, 19°C, 22°C, 25°C, and 28°C were tested. Two CTmax assays were ran at a time, and this was repeated three times until all 6 temperatures were tested. A low and a high temperature (for example, 28°C and 13°C) were selected each day, so patterns across temperature were not confounded by the date experiments took place.
+
+During the CTmax assay, a water bath was adjusted to the target start temperature. The water bath contained six 50 mL shell vials, each with 10 mL of artificial lake water. Individual copepods were placed into five of these vials, with the sixth containing a thermometer.Once all copepods were added, a water heater was used to gradually increase the temperature of the water bath. Copepods were monitored until they ceased responding to a gentle stimulus. The temperature at that point represents the individual's critical thermal maximum (CTmax).
+
+## Data Summary
+
+**Historical Copepods:**
+
+The climate affinities for 20 freshwater copepod species from present in the Wilson book were identified based on geographic ranges. Climate Affinity was categorized as either C (cold), T (temperate), or W (warm), based on the lowest latitude of each species found in literature. The figure below shows the affinities across communities of copepods from the sites across the Cape Cod region. Interestingly, landlocked sites (Cape Cod, Falmouth) had more cold adapted species than sites on islands (Elizabeth Islands, Chappaquiddick Island, etc.).
+
+```{r fig.width=12, fig.height=6, echo=T, message = F, warning = F}
+#| fig.cap = "The climate affinities of Woods Hole region copepod communities. Each vertical bar represents one site, with the fill colors indicating the proportional abundance of each climate affinity."
+
+affinity_cols = c("T" = "#53a24e", 
+                  "W" = "#a52a2a", 
+                  "C" = "#02439e")
+
+database %>% 
+  group_by(site) %>% 
+  mutate(prop_warm = sum(affinity == "W", na.rm = TRUE) / n()) %>%  
+  ungroup() %>% 
+  mutate(site = fct_reorder(site, prop_warm)) %>% 
+  arrange(site) %>% 
+  ggplot(aes(x = site, fill = affinity)) + 
+  facet_wrap(region~., scales = "free_x") + 
+  geom_bar(position = "fill") + 
+  scale_fill_manual(values = affinity_cols) + 
+  theme_bw(base_size = 18) + 
+  theme(axis.text.x = element_blank(), 
+        panel.grid = element_blank())
+
+```
+
+**CTmax Start Temp:**
+
+CTmax was measured for 4 populations of copepods. All 6 start temperatures were tested with *S. pallidus* (lab reared and field) and *L. siciloides* (lab reared), while 4 temperatures were tested for *L. siciloides* (field). Only 4 temperatures were tested for this group because a power outage led to strong temperature fluctuations before the assays were completed. For each full replicate, the CTmax was collected from 5 copepods per start temperature, with 6 temperatures tested for each group (total of 30 animals). With preliminary data collected, no significant change in CTmax has been observed with the changing start temperatures.
+
+```{r fig.width=7, fig.height=6, echo=T, message = F, warning = F}
+#| fig.cap = "The CTmax data for 4 different populations with different start temperatures."
+
+ctmax_data %>%
+ggplot(aes(x = start_temp, y = ctmax)) +
+facet_grid(species~lab_acc) +
+geom_point() +
+geom_smooth(method = "lm") +
+labs(x = "Start Temp. (°C)",
+y = "CTmax (°C)") +
+theme_bw(base_size = 18) +
+theme(panel.grid = element_blank())
+
+```
+
+## Conclusions & Troubleshooting
+
+**Historical Copepods:**
+
+For the 20 copepod species of interest, 13 were classified as Warm, 6 were classified as Temperate, and 1 was classified as Cold. Although only 1 species, *Skistodiaptomus pygmaeus*, was assigned a cold affinity, this is a fairly common species that was identified at many sites.
+
+Despite the how close the sites are geographically, there was a range of climate affinities of the species present between the locations. Now that the climate affinities of the species present in the 1880s are known, it will be easier to determine the climate affinities of present day populations at the same sites in the future. The specific guidelines that define the climate affinities can also be used to categorized any species found that Wilson did not observe.
+
+**CTmax Start Temp:**
+
+The average CTmax for each group remains consistent within a group. This is in stark contrast with the results of several previous studies, which showed that CTmax increases with start temperature. Many of these past studies have focused on terrestrial organisms. It might be that start temperature influences CTmax in terrestrial organisms not through direct effects of temperature but through indirect effects (dehydration, for example).
+
+While starting temperature had no effect, we did observe different CTmax values between groups. For both species, the field-acclimated individuals had higher CTmax values than the lab reared copepods. The lab reared copepods are kept at 16°C, while the field collected *S. pallidus* were acclimated to 25°C (the temperature of the field site). This difference suggests that acclimation has an affect on CTmax rather than starting temperature.
+
+## Next Steps
+
+**Historical Copepods:**
+
+The next step is to re-sample the sites listed in the Wilson book. By using data collected from the Wilson book, 12 ideal sample sites have been identified. These sites are land locked, have 3 or more species, and are sites re-identified with high confidence. Using this information, we can plan what sites are best to sample. Additionally, more questions could be asked about this project once re sampling is done, such as 'Have invasive copepod species impacted these communities?', 'How has land use affected species composition along with climate change?', and 'What is the thermal tolerance (CTmax) of collected specimens?'.
+
+**CTmax Start Temp:**
+
+Data from another local species like *O. birgei* may be added to the dataset. Once all the data is collected, we will begin drafting a manuscript for publication.
+
+## References
+
+1.  Terblanche, John S., Jacques A. Deere, Susana Clusella-Trullas, Charlene Janion, and Steven L. Chown. 2007. “Critical Thermal Limits Depend on Methodological Context.” Proceedings of the Royal Society B: Biological Sciences 274 (1628): 2935–43. https://doi.org/10.1098/rspb.2007.0985.

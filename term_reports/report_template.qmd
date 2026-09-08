@@ -44,7 +44,7 @@ The instructions above can be removed before submitting the final report. The se
 library(tidyverse)
 ```
 
-### Component Projects
+## Component Projects
 
 Provide a brief introduction to each projects covered in the report, along with the main hypothesis you're testing (1-2 paragraphs total). It would be useful to include a brief description of the scope of each project included in the report (e.g. PhD chapter, honors thesis, standard lab project).
 

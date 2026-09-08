@@ -1,0 +1,66 @@
+---
+title: "Honors College Thesis Proposal"
+format:
+  typst:
+    toc: false
+    number-sections: false
+    mainfont: arial
+author: "YOUR NAME"
+subtitle: "PROJECT TITLE GOES HERE"
+date: today
+---
+
+### Proposal Instructions
+
+Your proposal must be generated with this quarto file, but the styling/aesthetics are largely up to you. If you include images, schematics, figures, etc. (optional), they do not need to be internally generated - keep in mind, however, that the document will not render if the file paths are incorrect.
+
+Save the file / PDF output as YYYY_LASTNAME_HONORS_PROPOSAL.pdf
+
+- YYYY = Year in 4-digit format (e.g. 2025)
+- LASTNAME = your last name in upper case (e.g. SASAKI)
+- Combined, the PDF file name should be something like "2025_SASAKI_HONORS_PROPOSAL.pdf"
+
+Once completed, send your draft .qmd file to Matt for review. You may need to go through several iterations before the draft is ready to be shared with your committee member.
+
+The instructions above should be removed before submitting your proposal. The sections below can be used for the report (just replace the text under each heading).
+
+## Thesis Details 
+
+|                   |                              |
+|------------------:|------------------------------|
+|           Mentor: | Dr. Matthew Sasaki           |
+| Committee Member: | FILL IN HERE                 |
+|   Project Format: | Research Thesis              |
+|   Project Output: | Article length written paper |
+
+## Proposal Background
+
+Provide a brief introduction to your project (1-2 paragraphs total). This introduction needs to cover all the relevant background information for someone to understand your main question (and why it's interesting!). This section serves as the proposal overview and justification.
+
+Note - the visual editor function for these quarto documents includes a citation function that can connect to your Zotero library and create a formatted reference section. Use this functionality!
+
+## Research Questions and Hypotheses
+
+Provide a concise statement about the question(s) your project addresses. Based on these questions, what are your hypotheses.
+
+## Experimental Design
+
+Provide a detailed description of the experimental methods you are planning on using.
+
+### Hypothesis Testing
+
+Explain how your data will be used to test the hypotheses you've proposed.
+
+## Project Timeline
+
+| Month     | Progress |
+|-----------|----------|
+| September |          |
+| October   |          |
+| November  |          |
+| December  |          |
+| January   |          |
+| February  |          |
+| March     |          |
+| April     |          |
+| May       |          |
