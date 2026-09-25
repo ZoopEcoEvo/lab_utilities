@@ -1,0 +1,73 @@
+---
+title: "Title of Dissertation Here"
+format:
+  docx:
+    reference-doc: proposal_style.docx
+editor: visual
+---
+
+## Introduction 
+
+Summarize the general area of interest here, and set up over-arching theme / question of the dissertation.
+
+## Chapter Summaries
+
+## Chapter 1
+
+### Background 
+
+Relevant background information.
+
+### Hypothesis
+
+Clearly state central hypothesis here.
+
+### Methods and Hypothesis Testing
+
+Thorough description of methods, experimental design, and statistical analyses planned. Include explicit details about how the results will be used to test the hypothesis proposed. You should also included how 'alternative' results might be interpreted (e.g. what does a null result signify and why is it still interesting?).
+
+## Chapter 2
+
+### Background 
+
+Relevant background information.
+
+### Hypothesis
+
+Clearly state central hypothesis here.
+
+### Methods and Hypothesis Testing
+
+Thorough description of methods, experimental design, and statistical analyses planned. Include explicit details about how the results will be used to test the hypothesis proposed. You should also included how 'alternative' results might be interpreted (e.g. what does a null result signify and why is it still interesting?).
+
+## Chapter 3
+
+### Background 
+
+Relevant background information.
+
+### Hypothesis
+
+Clearly state central hypothesis here.
+
+### Methods and Hypothesis Testing
+
+Thorough description of methods, experimental design, and statistical analyses planned. Include explicit details about how the results will be used to test the hypothesis proposed. You should also included how 'alternative' results might be interpreted (e.g. what does a null result signify and why is it still interesting?).
+
+## Chapter 4 (optional)
+
+### Background 
+
+Relevant background information.
+
+### Hypothesis
+
+Clearly state central hypothesis here.
+
+### Methods and Hypothesis Testing
+
+Thorough description of methods, experimental design, and statistical analyses planned. Include explicit details about how the results will be used to test the hypothesis proposed. You should also included how 'alternative' results might be interpreted (e.g. what does a null result signify and why is it still interesting?).
+
+## Synthesis
+
+Use this section to tie your chapters together. What's the synthetic insight your dissertation/thesis will provide?

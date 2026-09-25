@@ -8,13 +8,14 @@ format:
 author: "YOUR NAME"
 subtitle: "PROJECT TITLE GOES HERE"
 date: today
+bibliography: references.bib
 ---
 
 **Proposal Instructions**
 
 Your proposal must be generated with this quarto file, but the styling/aesthetics are largely up to you. If you include images, schematics, figures, etc. (optional), they do not need to be internally generated - keep in mind, however, that the document will not render if the file paths are incorrect.
 
-Your proposal must be well-cited. It's hard to provide a minimum or maximum number of required citations, but you should aim for at least 10 references. 
+Your proposal must be well-cited. It's hard to provide a minimum or maximum number of required citations, but you should aim for at least 10 references.
 
 Save the file / PDF output as YYYY_LASTNAME_HONORS_PROPOSAL.pdf
 
@@ -24,9 +25,9 @@ Save the file / PDF output as YYYY_LASTNAME_HONORS_PROPOSAL.pdf
 
 Once completed, send your draft .qmd file to Matt for review. You may need to go through several iterations before the draft is ready to be shared with your committee member.
 
-The instructions above should be removed before submitting your proposal. The sections below should be used for the proposal (just replace the text under each heading). Additional sections may be added if needed. 
+The instructions above should be removed before submitting your proposal. The sections below should be used for the proposal (just replace the text under each heading). Additional sections may be added if needed.
 
-## Thesis Details 
+## Thesis Details
 
 |                   |                              |
 |------------------:|------------------------------|
@@ -37,7 +38,7 @@ The instructions above should be removed before submitting your proposal. The se
 
 ## Proposal Background
 
-Provide a brief introduction to your project (1-2 paragraphs total). This introduction needs to cover all the relevant background information for someone to understand your main question (and why it's interesting!). This section serves as the proposal overview and justification. 
+Provide a brief introduction to your project (1-2 paragraphs total). This introduction needs to cover all the relevant background information for someone to understand your main question (and why it's interesting!). This section serves as the proposal overview and justification.
 
 Note - the visual editor function for these quarto documents includes a citation function that can connect to your Zotero library and create a formatted reference section. Use this functionality!
 
