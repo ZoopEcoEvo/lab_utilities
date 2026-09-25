@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zooplankton Counter</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --ink:      #1a2230;
+    --mid:      #4a5568;
+    --faint:    #a0aec0;
+    --rule:     #d6e4ee;
+    --wash:     #eef4f9;
+    --page:     #f7fafc;
+    --white:    #ffffff;
+    --accent:   #2a7fa8;
+    --accent2:  #1a5470;
+    --positive: #2d7a4f;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--page); color: var(--ink); min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: var(--ink); color: var(--white); padding: 18px 32px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 100;
+  }
+  header .logo { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+  header .logo span { color: var(--accent); }
+  header .subtitle { font-size: 12px; color: var(--faint); font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  header .spacer { flex: 1; }
+  .total-pill {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600;
+    color: var(--accent); background: rgba(42,127,168,0.15); border: 1px solid rgba(42,127,168,0.3);
+    border-radius: 20px; padding: 5px 14px; white-space: nowrap;
+  }
+  .total-pill span { color: var(--faint); font-size: 11px; font-weight: 400; margin-left: 4px; }
+  .hdr-btn {
+    background: var(--accent); color: var(--white); border: none; padding: 9px 20px;
+    border-radius: 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+    font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: background 0.15s; white-space: nowrap;
+  }
+  .hdr-btn:hover { background: var(--accent2); }
+  .hdr-btn-ghost {
+    background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.3);
+    padding: 9px 20px; border-radius: 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+    font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: background 0.15s, border-color 0.15s; white-space: nowrap;
+  }
+  .hdr-btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
+
+  /* ── Meta bar ── */
+  .meta-bar {
+    background: var(--white); border-bottom: 1px solid var(--rule);
+    padding: 12px 24px 10px; display: flex; flex-wrap: wrap; gap: 0; align-items: stretch;
+  }
+  .meta-field {
+    display: flex; flex-direction: column; border-right: 1px solid var(--rule);
+    padding: 4px 16px 6px 0; margin-right: 16px; min-width: 110px; position: relative;
+  }
+  .meta-field:last-of-type { border-right: none; }
+  .meta-label-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+  .meta-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--faint); border: none; background: transparent; padding: 0;
+    font-family: 'IBM Plex Sans', sans-serif; cursor: text; min-width: 100px; max-width: 300px;
+  }
+  .meta-label:focus { outline: none; color: var(--accent); border-bottom: 1px dashed var(--accent); }
+  .meta-del-btn {
+    background: none; border: none; cursor: pointer; color: var(--rule); font-size: 14px;
+    line-height: 1; padding: 0 1px; border-radius: 2px; transition: color 0.1s; flex-shrink: 0; display: none;
+  }
+  .meta-field:hover .meta-del-btn { display: inline; }
+  .meta-del-btn:hover { color: #c0392b; }
+  .meta-value {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; border: none;
+    border-bottom: 1px solid transparent; padding: 2px 0; color: var(--ink);
+    background: transparent; min-width: 80px; max-width: 180px; transition: border-color 0.15s;
+  }
+  .meta-value:focus { outline: none; border-bottom-color: var(--accent); }
+  .meta-value::placeholder { color: var(--rule); }
+  input[type="date"].meta-value  { max-width: 150px; }
+  input[type="number"].meta-value { max-width: 90px; }
+  select.meta-value { cursor: pointer; max-width: 160px; }
+  .meta-add-btn {
+    background: none; border: 1px dashed var(--rule); border-radius: 4px; padding: 4px 12px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--faint); cursor: pointer;
+    align-self: center; transition: border-color 0.15s, color 0.15s; white-space: nowrap; margin-left: 4px;
+  }
+  .meta-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Category tabs ── */
+  .tab-bar {
+    background: var(--white); border-bottom: 1px solid var(--rule);
+    padding: 0 24px; display: flex; gap: 0; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 12px 20px; font-size: 13px; font-weight: 500; color: var(--mid);
+    cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s; user-select: none;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .tab .tab-count {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    background: var(--wash); border-radius: 10px; padding: 1px 7px;
+    color: var(--faint); min-width: 24px; text-align: center;
+  }
+  .tab.active .tab-count { background: rgba(42,127,168,0.12); color: var(--accent); }
+
+  /* ── Page body ── */
+  .page-body { max-width: 960px; margin: 0 auto; padding: 28px 24px 60px; display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── Species block ── */
+  .species-block { background: var(--white); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .species-block-head { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--rule); background: var(--wash); }
+  .sp-color-bar { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+  .sp-names { flex: 1; }
+  .sp-names h3 { font-size: 16px; font-weight: 600; font-style: italic; }
+  .sp-total-badge { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; min-width: 48px; text-align: right; }
+  .sp-total-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); text-align: right; margin-top: 1px; }
+  .sp-del-btn { background: none; border: none; cursor: pointer; color: var(--faint); font-size: 20px; padding: 4px 6px; border-radius: 3px; line-height: 1; transition: color 0.1s, background 0.1s; }
+  .sp-del-btn:hover { color: #c0392b; background: #fdecea; }
+
+  /* ── Stage grid ── */
+  .species-block-body { padding: 16px 20px 14px; display: flex; flex-direction: column; gap: 14px; }
+  .stage-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+  .stage-card { border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; background: var(--page); }
+  .stage-label { flex: 1; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); line-height: 1.3; }
+  .stage-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .count-btn {
+    width: 32px; height: 32px; border-radius: 4px; border: 1px solid var(--rule);
+    background: var(--white); font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; color: var(--ink);
+    transition: all 0.1s; line-height: 1; font-family: 'IBM Plex Mono', monospace; user-select: none; flex-shrink: 0;
+  }
+  .count-btn.plus { border-color: var(--accent); color: var(--accent); }
+  .count-btn.plus:hover { background: var(--accent); color: var(--white); }
+  .count-btn.minus:hover { background: var(--wash); }
+  .count-btn:active { transform: scale(0.9); }
+  .count-display {
+    font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 600;
+    color: var(--ink); min-width: 40px; text-align: center; cursor: pointer;
+    border-radius: 3px; padding: 2px 4px; transition: background 0.1s;
+  }
+  .count-display:hover { background: var(--wash); }
+  .count-display input {
+    font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600;
+    color: var(--ink); border: 1px solid var(--accent); border-radius: 3px;
+    background: var(--white); width: 58px; text-align: center; padding: 2px 4px; display: none;
+  }
+  .count-display.editing span { display: none; }
+  .count-display.editing input { display: block; }
+
+  /* ── Notes row ── */
+  .notes-row { display: flex; align-items: center; gap: 8px; }
+  .notes-row label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); white-space: nowrap; }
+  .notes-row input { flex: 1; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; border: 1px solid var(--rule); border-radius: 3px; padding: 5px 8px; color: var(--ink); background: var(--page); }
+  .notes-row input:focus { outline: none; border-color: var(--accent); background: var(--white); }
+
+  /* ── Add species bar ── */
+  .add-species-bar {
+    display: flex; gap: 10px; align-items: flex-end;
+    background: var(--white); border: 1px dashed var(--accent); border-radius: 8px; padding: 16px 20px;
+  }
+  .add-species-bar .afield { display: flex; flex-direction: column; gap: 4px; }
+  .add-species-bar .afield label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); }
+  .add-species-bar .afield input, .add-species-bar .afield select {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; border: 1px solid var(--rule);
+    border-radius: 3px; padding: 6px 10px; color: var(--ink); background: var(--page); min-width: 180px;
+  }
+  .add-species-bar .afield input:focus, .add-species-bar .afield select:focus { outline: none; border-color: var(--accent); }
+  .btn-add-species {
+    background: var(--accent); color: var(--white); border: none; border-radius: 4px;
+    padding: 8px 20px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+    font-weight: 600; cursor: pointer; height: 34px; white-space: nowrap;
+    transition: background 0.15s; align-self: flex-end;
+  }
+  .btn-add-species:hover { background: var(--accent2); }
+  .btn-upload {
+    background: var(--white); color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 4px; padding: 8px 16px; font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer; height: 34px; white-space: nowrap;
+    transition: background 0.15s; align-self: flex-end;
+  }
+  .btn-upload:hover { background: var(--wash); }
+  .upload-hint { font-size: 11px; color: var(--faint); align-self: flex-end; padding-bottom: 8px; }
+
+  /* ── Toast ── */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px; background: var(--positive); color: var(--white);
+    padding: 10px 20px; border-radius: 4px; font-size: 13px; font-weight: 600;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 999;
+  }
+  #toast.show { opacity: 1; }
+  #fileInput { display: none; }
+
+  @media (max-width: 600px) {
+    header { padding: 12px 16px; gap: 8px; }
+    .meta-bar { padding: 10px 16px; }
+    .page-body { padding: 16px 12px 60px; }
+    .add-species-bar { flex-direction: column; }
+    .add-species-bar .afield input, .add-species-bar .afield select { min-width: 0; width: 100%; }
+    .btn-add-species, .btn-upload { width: 100%; }
+    .total-pill span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">ZEAL<span>counter</span></div>
+    <div class="subtitle">Plankton Diversity Logger</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="total-pill" id="grandTotalPill">0 <span>organisms</span></div>
+  <button class="hdr-btn" onclick="exportCSV()">⬇ Export CSV</button>
+  <button class="hdr-btn-ghost" onclick="exportTaxaList()">⬇ Export Taxa List</button>
+  <button class="hdr-btn-ghost" onclick="clearAllValues()">↺ Clear Values</button>
+</header>
+
+<div class="meta-bar" id="metaBar"></div>
+<div class="tab-bar" id="tabBar"></div>
+<div class="page-body" id="pageBody"></div>
+<input type="file" id="fileInput" accept=".txt,.csv">
+<div id="toast"></div>
+
+<script>
+// ── Meta fields ───────────────────────────────────────────────────────────
+// type: 'text' | 'date' | 'number' | 'select'
+// for 'select', provide options: ['a','b',...]
+let metaFields = [
+  { id: 'f1', label: 'Sample',         type: 'text',   value: '',    placeholder: 'e.g. NS-2026-01' },
+  { id: 'f2', label: 'Date',           type: 'date',   value: new Date().toISOString().slice(0,10), placeholder: '' },
+  { id: 'f3', label: 'Site',           type: 'text',   value: '',    placeholder: 'e.g. Lowell, MA' },
+  { id: 'f4', label: 'Count Date',     type: 'date',   value: new Date().toISOString().slice(0,10), placeholder: '' },
+  { id: 'f5', label: 'Observer',       type: 'text',   value: '',    placeholder: 'Name or initials' },
+  { id: 'f6', label: 'Volume Counted', type: 'text',   value: '',    placeholder: 'In mL' },
+  { id: 'f7', label: 'Sample Volume', type: 'text',   value: '',    placeholder: 'In mL' },
+  { id: 'f8', label: 'Tow Type',       type: 'select', value: '',
+    options: ['', 'Surface', 'Vertical', 'Oblique', 'Littoral'] },
+];
+
+function mfUid() { return 'mf' + Math.random().toString(36).slice(2,7); }
+
+function renderMeta() {
+  const bar = document.getElementById('metaBar');
+  bar.innerHTML = '';
+  metaFields.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'meta-field';
+
+    let valueEl;
+    if (f.type === 'select') {
+      const opts = (f.options || []).map(o =>
+        `<option value="${esc(o)}" ${f.value === o ? 'selected' : ''}>${o === '' ? '— select —' : esc(o)}</option>`
+      ).join('');
+      valueEl = `<select class="meta-value" onchange="updateMetaValue('${f.id}', this.value)">${opts}</select>`;
+    } else {
+      valueEl = `<input class="meta-value" type="${f.type}" value="${esc(f.value)}"
+        placeholder="${esc(f.placeholder || '')}"
+        ${f.type === 'number' ? 'min="0"' : ''}
+        onchange="updateMetaValue('${f.id}', this.value)"
+        oninput="updateMetaValue('${f.id}', this.value)">`;
+    }
+
+    div.innerHTML = `
+      <div class="meta-label-row">
+        <input class="meta-label" type="text" value="${esc(f.label)}" title="Click to rename"
+          onchange="updateMetaLabel('${f.id}', this.value)"
+          size="${Math.max(f.label.length, 4)}">
+        <button class="meta-del-btn" title="Remove field" onclick="removeMetaField('${f.id}')">×</button>
+      </div>
+      ${valueEl}
+    `;
+    bar.appendChild(div);
+  });
+  const btn = document.createElement('button');
+  btn.className = 'meta-add-btn';
+  btn.textContent = '+ Add field';
+  btn.onclick = addMetaField;
+  bar.appendChild(btn);
+}
+
+function updateMetaLabel(id, val) { const f = metaFields.find(f=>f.id===id); if(f) f.label=val; }
+function updateMetaValue(id, val) { const f = metaFields.find(f=>f.id===id); if(f) f.value=val; }
+function removeMetaField(id)      { metaFields = metaFields.filter(f=>f.id!==id); renderMeta(); }
+function addMetaField() {
+  metaFields.push({ id: mfUid(), label: 'New field', type: 'text', value: '', placeholder: '' });
+  renderMeta();
+  const labels = document.querySelectorAll('.meta-label');
+  if (labels.length) { const l = labels[labels.length-1]; l.focus(); l.select(); }
+}
+
+// ── Species data ──────────────────────────────────────────────────────────
+const COLORS = ['#2a7fa8','#e07b39','#2d7a4f','#7c57a8','#b5294e','#a07428','#3a8c8c','#6b7fa8'];
+let colorIdx = 0;
+const DEFAULT_STAGES = ['Nauplii', 'Juvenile', 'Female', 'Male'];
+let species = [];
+let activeTab = 'All'; // currently shown tab
+
+const ALL_TAB = 'All';
+
+function uid() { return Math.random().toString(36).slice(2,9); }
+
+function makeSpecies(taxon, category) {
+  category = (category || 'Uncategorized').trim();
+  const stages = DEFAULT_STAGES.map(n => ({ id: uid(), name: n }));
+  const counts = {};
+  stages.forEach(s => counts[s.id] = 0);
+  return { id: uid(), taxon: taxon.trim(), category, color: COLORS[colorIdx++ % COLORS.length], stages, counts, notes: '' };
+}
+
+function getSp(id)      { return species.find(s=>s.id===id); }
+function spTotal(sp)    { return Object.values(sp.counts).reduce((a,b)=>a+b,0); }
+function grandTotal()   { return species.reduce((a,s)=>a+spTotal(s),0); }
+
+// Return sorted unique category list
+function getCategories() {
+  const cats = [...new Set(species.map(s => s.category))].sort();
+  return cats;
+}
+
+// Species visible on the active tab, sorted by total count desc then alphabetically
+function visibleSpecies() {
+  const list = activeTab === ALL_TAB
+    ? [...species]
+    : species.filter(s => s.category === activeTab);
+  return list.sort((a,b) => spTotal(b) - spTotal(a) || a.taxon.localeCompare(b.taxon));
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+function renderTabs() {
+  const bar = document.getElementById('tabBar');
+  bar.innerHTML = '';
+  const cats = getCategories();
+  const tabs = cats.length > 1 ? [ALL_TAB, ...cats] : [ALL_TAB, ...cats];
+
+  tabs.forEach(cat => {
+    const count = cat === ALL_TAB
+      ? species.length
+      : species.filter(s => s.category === cat).length;
+    const tabTotal = cat === ALL_TAB
+      ? grandTotal()
+      : species.filter(s => s.category === cat).reduce((a,s)=>a+spTotal(s),0);
+
+    const div = document.createElement('div');
+    div.className = 'tab' + (cat === activeTab ? ' active' : '');
+    div.innerHTML = `${esc(cat)} <span class="tab-count">${tabTotal > 0 ? tabTotal : count}</span>`;
+    div.title = tabTotal > 0 ? `${tabTotal} organisms counted` : `${count} taxa`;
+    div.onclick = () => { activeTab = cat; renderTabs(); renderBody(); };
+    bar.appendChild(div);
+  });
+}
+
+// ── Body rendering ────────────────────────────────────────────────────────
+function renderBody() {
+  const body = document.getElementById('pageBody');
+  body.innerHTML = '';
+
+  const visible = visibleSpecies();
+
+  visible.forEach(sp => {
+    const block = document.createElement('div');
+    block.className = 'species-block';
+    block.id = 'block-' + sp.id;
+    const total = spTotal(sp);
+    const totalColor = total > 0 ? sp.color : 'var(--faint)';
+
+    const stageCards = sp.stages.map(st => `
+      <div class="stage-card" id="card-${st.id}">
+        <div class="stage-label">${esc(st.name)}</div>
+        <div class="stage-controls">
+          <button class="count-btn minus" onclick="adjust('${sp.id}','${st.id}',-1)">−</button>
+          <div class="count-display" id="disp-${st.id}" onclick="startEdit('${sp.id}','${st.id}')">
+            <span id="cnt-${st.id}">${sp.counts[st.id]}</span>
+            <input type="number" min="0" id="inp-${st.id}"
+              onblur="commitEdit('${sp.id}','${st.id}')"
+              onkeydown="if(event.key==='Enter'||event.key==='Tab')commitEdit('${sp.id}','${st.id}')">
+          </div>
+          <button class="count-btn plus" onclick="adjust('${sp.id}','${st.id}',1)">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    block.innerHTML = `
+      <div class="species-block-head">
+        <div class="sp-color-bar" style="background:${sp.color}"></div>
+        <div class="sp-names"><h3>${esc(sp.taxon)}</h3></div>
+        <div>
+          <div class="sp-total-badge" style="color:${totalColor}">${total}</div>
+          <div class="sp-total-label">counted</div>
+        </div>
+        <button class="sp-del-btn" title="Remove" onclick="removeSpecies('${sp.id}')">×</button>
+      </div>
+      <div class="species-block-body">
+        <div class="stage-row">${stageCards}</div>
+        <div class="notes-row">
+          <label>Notes</label>
+          <input type="text" placeholder="Observations, condition, features…"
+            value="${esc(sp.notes)}" oninput="getSp('${sp.id}').notes=this.value">
+        </div>
+      </div>
+    `;
+    body.appendChild(block);
+  });
+
+  // Add-species bar
+  const cats = getCategories();
+  const catOptions = cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  const addBar = document.createElement('div');
+  addBar.className = 'add-species-bar';
+  addBar.innerHTML = `
+    <div class="afield">
+      <label>Taxon</label>
+      <input type="text" id="newTaxon" placeholder="e.g. Eurytemora herdmani"
+        onkeydown="if(event.key==='Enter')document.getElementById('newCategory').focus()">
+    </div>
+    <div class="afield">
+      <label>Category</label>
+      <input type="text" id="newCategory" list="catList" placeholder="e.g. Copepod"
+        onkeydown="if(event.key==='Enter')addSpeciesManual()">
+      <datalist id="catList">${catOptions}</datalist>
+    </div>
+    <button class="btn-add-species" onclick="addSpeciesManual()">+ Add species</button>
+    <button class="btn-upload" onclick="document.getElementById('fileInput').click()">⬆ Upload list</button>
+    <span class="upload-hint">taxon, category — one per line</span>
+  `;
+  body.appendChild(addBar);
+
+  document.getElementById('grandTotalPill').innerHTML = grandTotal() + ' <span>organisms</span>';
+}
+
+function render() {
+  renderTabs();
+  renderBody();
+}
+
+// ── Count updates (no full re-render) ─────────────────────────────────────
+let reorderTimer = null;
+
+function reorderBlocks() {
+  const scrollY = window.scrollY;
+  const body = document.getElementById('pageBody');
+  const addBar = body.querySelector('.add-species-bar');
+  const sorted = visibleSpecies();
+  sorted.forEach(s => {
+    const b = document.getElementById('block-' + s.id);
+    if (b) body.insertBefore(b, addBar);
+  });
+  window.scrollTo({ top: scrollY, behavior: 'instant' });
+}
+
+function updateCounts(spId) {
+  const sp = getSp(spId);
+  const total = spTotal(sp);
+  // update stage count spans
+  sp.stages.forEach(st => {
+    const el = document.getElementById('cnt-' + st.id);
+    if (el) el.textContent = sp.counts[st.id];
+  });
+  // update species total badge
+  const block = document.getElementById('block-' + spId);
+  if (block) {
+    const badge = block.querySelector('.sp-total-badge');
+    if (badge) { badge.textContent = total; badge.style.color = total > 0 ? sp.color : 'var(--faint)'; }
+  }
+  document.getElementById('grandTotalPill').innerHTML = grandTotal() + ' <span>organisms</span>';
+  renderTabs();
+  // Debounce reorder: wait 5 s after last count change before re-sorting
+  clearTimeout(reorderTimer);
+  reorderTimer = setTimeout(reorderBlocks, 5000);
+}
+
+function adjust(spId, stageId, delta) {
+  const sp = getSp(spId);
+  sp.counts[stageId] = Math.max(0, (sp.counts[stageId]||0) + delta);
+  updateCounts(spId);
+}
+
+function startEdit(spId, stageId) {
+  const sp = getSp(spId);
+  const disp = document.getElementById('disp-' + stageId);
+  const inp  = document.getElementById('inp-'  + stageId);
+  disp.classList.add('editing');
+  inp.value = sp.counts[stageId];
+  inp.focus(); inp.select();
+}
+
+function commitEdit(spId, stageId) {
+  const sp   = getSp(spId);
+  const disp = document.getElementById('disp-' + stageId);
+  const inp  = document.getElementById('inp-'  + stageId);
+  sp.counts[stageId] = Math.max(0, parseInt(inp.value)||0);
+  disp.classList.remove('editing');
+  updateCounts(spId);
+}
+
+// ── Species management ────────────────────────────────────────────────────
+function addSpeciesManual() {
+  const taxon    = document.getElementById('newTaxon').value.trim();
+  const category = document.getElementById('newCategory').value.trim() || 'Uncategorized';
+  if (!taxon) { document.getElementById('newTaxon').focus(); return; }
+  const exists = species.some(s => s.taxon.toLowerCase() === taxon.toLowerCase());
+  if (exists) { showToast('Taxon already exists'); return; }
+  species.push(makeSpecies(taxon, category));
+  // switch to the new species' tab
+  activeTab = category;
+  render();
+}
+
+function removeSpecies(id) {
+  if (!confirm('Remove this taxon and its counts?')) return;
+  species = species.filter(s => s.id !== id);
+  // if active tab is now empty, go to All
+  if (activeTab !== ALL_TAB && !species.some(s => s.category === activeTab)) {
+    activeTab = ALL_TAB;
+  }
+  render();
+}
+
+// ── Bulk upload ───────────────────────────────────────────────────────────
+document.getElementById('fileInput').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result.split(/\r?\n/);
+    let added = 0;
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      // Support "taxon, category" or just "taxon"
+      const commaIdx = trimmed.indexOf(',');
+      let taxon, category;
+      if (commaIdx !== -1) {
+        taxon    = trimmed.slice(0, commaIdx).trim();
+        category = trimmed.slice(commaIdx + 1).trim();
+      } else {
+        taxon    = trimmed;
+        category = 'Uncategorized';
+      }
+      if (!taxon) return;
+      const exists = species.some(s => s.taxon.toLowerCase() === taxon.toLowerCase());
+      if (!exists) { species.push(makeSpecies(taxon, category)); added++; }
+    });
+    activeTab = ALL_TAB;
+    render();
+    showToast(added > 0 ? `Added ${added} taxon${added === 1 ? '' : 'a'}` : 'No new taxa found');
+  };
+  reader.readAsText(file);
+  this.value = '';
+});
+
+// ── Clear all values ──────────────────────────────────────────────────────
+function clearAllValues() {
+  if (!confirm('Reset all counts and notes? The taxa list will be kept.')) return;
+  species.forEach(sp => {
+    sp.stages.forEach(st => sp.counts[st.id] = 0);
+    sp.notes = '';
+  });
+  metaFields.forEach(f => {
+    if (f.type === 'date') return; // keep dates as-is
+    f.value = '';
+  });
+  renderMeta();
+  render();
+  showToast('All values cleared');
+}
+
+// ── Export taxa list ──────────────────────────────────────────────────────
+function exportTaxaList() {
+  const sorted = [...species].sort((a,b) =>
+    a.category.localeCompare(b.category) || a.taxon.localeCompare(b.taxon));
+  const lines = sorted.map(sp => `${sp.taxon}, ${sp.category}`);
+  const blob  = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const url   = URL.createObjectURL(blob);
+  const a     = document.createElement('a');
+  a.href = url; a.download = 'taxa_list.txt'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Taxa list exported!');
+}
+
+// ── CSV export ─────────────────────────────────────────────────────────────
+function exportCSV() {
+  const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+  const metaHeaders = metaFields.map(f => slug(f.label) || f.id);
+  const metaValues  = metaFields.map(f => f.value);
+
+  // Export ALL species regardless of active tab, sorted by category then taxon
+  const sorted = [...species].sort((a,b) =>
+    a.category.localeCompare(b.category) || a.taxon.localeCompare(b.taxon));
+
+  const headers = [...metaHeaders, 'category', 'taxon', 'life_stage', 'count', 'notes'];
+  const rows = [headers];
+  sorted.forEach(sp => {
+    sp.stages.forEach(st => {
+      rows.push([...metaValues, sp.category, sp.taxon, st.name, sp.counts[st.id]||0, sp.notes.replace(/\n/g,' ')]);
+    });
+  });
+
+  const csv  = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const observerField = metaFields.find(f => f.label.toLowerCase().includes('observer'));
+  const sampleField   = metaFields.find(f => f.label.toLowerCase().includes('sample') || f.label.toLowerCase().includes('id'));
+  const dateField     = metaFields.find(f => f.type === 'date');
+  const observerPart  = (observerField && observerField.value.trim()) || '';
+  const samplePart    = (sampleField   && sampleField.value.trim())   || '';
+  const datePart      = (dateField     && dateField.value.trim())     || new Date().toISOString().slice(0,10);
+  const safeObserver  = observerPart.replace(/[^a-z0-9_\-]/gi, '_');
+  const safeSample    = samplePart.replace(/[^a-z0-9_\-]/gi, '_');
+  const filename      = [safeObserver, safeSample, datePart].filter(Boolean).join('_') + '.csv';
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV exported!');
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── Utility ───────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Warn on close ─────────────────────────────────────────────────────────
+window.addEventListener('beforeunload', e => { e.preventDefault(); e.returnValue = ''; });
+
+// ── Init ──────────────────────────────────────────────────────────────────
+renderMeta();
+render();
+</script>
+</body>
+</html>

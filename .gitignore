@@ -11,7 +11,6 @@ protocols/water_changes.html
 *.js
 nutrient_calculator/calculator_app.R
 nutrient_calculator/rsconnect/documents/calculator_app.R/shinyapps.io/matthew-sasaki/nutrient_calculator.dcf
-*.html
 *.afdesign
 term_reports/*.pdf
 *.psd

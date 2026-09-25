@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZEAL CTmax Logger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF2F1; --surface:#FFFFFF; --surface-2:#E2EAE9; --ink:#12302D; --ink-2:#4A6663;
+  --line:#C6D4D2; --teal:#146B66; --teal-ink:#FFFFFF; --heat:#C8233A; --heat-ink:#FFFFFF;
+  --glass:#98AFAC; --tube-bg:#F7FAFA; --warn:#8A5A00; --warn-bg:#FFF3D6; --err:#A11D2F; --err-bg:#FBE4E7;
+  --focus:#2F6DB5;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1C1B; --surface:#152725; --surface-2:#1C3230; --ink:#E3EEEC; --ink-2:#9CB6B2;
+    --line:#2B4542; --teal:#4DB6AD; --teal-ink:#06201E; --heat:#FF5C70; --heat-ink:#2A0409;
+    --glass:#557370; --tube-bg:#10201F; --warn:#F2C45A; --warn-bg:#33290F; --err:#FF8A98; --err-bg:#3A1419;
+    --focus:#7DB0F0; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1C1B; --surface:#152725; --surface-2:#1C3230; --ink:#E3EEEC; --ink-2:#9CB6B2;
+  --line:#2B4542; --teal:#4DB6AD; --teal-ink:#06201E; --heat:#FF5C70; --heat-ink:#2A0409;
+  --glass:#557370; --tube-bg:#10201F; --warn:#F2C45A; --warn-bg:#33290F; --err:#FF8A98; --err-bg:#3A1419;
+  --focus:#7DB0F0; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.45;font-variant-numeric:tabular-nums}
+.mono{font-family:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 64px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:20px}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.1}
+h1 sub{font-size:.55em;font-weight:700;vertical-align:baseline;position:relative;top:.2em}
+.saved{color:var(--ink-2);font-size:.9rem}
+h2{font-size:1.2rem;margin:0 0 4px;font-weight:700}
+h2 .n{display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--ink);color:var(--bg);font-size:.8em;margin-right:.45em;vertical-align:.1em}
+.hint{color:var(--ink-2);margin:0 0 14px;font-size:.95rem;max-width:68ch}
+section.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.9rem;font-weight:600;color:var(--ink-2)}
+input,select,button{font:inherit;color:inherit}
+input[type=text],input[type=date],input[type=number],input[type=time],select{
+  background:var(--tube-bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0;width:100%;color:var(--ink)}
+input:disabled{opacity:.6}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.cf{display:flex;flex-direction:column;gap:4px;min-width:0}
+.cf-top{display:flex;gap:6px;align-items:center}
+.cf-top input{font-size:.9rem;font-weight:600;padding:5px 8px;background:transparent;border-style:dashed}
+.cf-x{border:0;background:none;color:var(--ink-2);cursor:pointer;font-size:1.2rem;line-height:1;padding:4px 6px;border-radius:6px}
+.cf-x:hover{color:var(--err)}
+.cf-col{font-size:.78rem;color:var(--ink-2);min-height:1.1em}
+.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
+.btn:hover:not(:disabled){border-color:var(--ink-2)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary{background:var(--teal);color:var(--teal-ink);border-color:var(--teal)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--err)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:26px 0 12px}
+.tab{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;display:inline-flex;gap:8px;align-items:center}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--glass)}
+.dot.run{background:var(--heat)} .dot.done{background:var(--teal)}
+/* groups */
+.mode{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.mode label{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer}
+.mode label:has(input:checked){border-color:var(--teal);background:color-mix(in srgb,var(--teal) 10%,transparent)}
+.gtable{width:100%;border-collapse:collapse}
+.gtable th{text-align:left;font-size:.85rem;color:var(--ink-2);font-weight:600;padding:0 8px 6px 0}
+.gtable td{padding:4px 8px 4px 0;vertical-align:middle}
+.gtable td.n input{width:5.5em}
+.sw{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--gc);color:#fff;font-weight:800;font-size:.9rem}
+.msg{border-radius:8px;padding:8px 12px;margin-top:12px;font-size:.95rem}
+.msg.err{background:var(--err-bg);color:var(--err)}
+.msg.warn{background:var(--warn-bg);color:var(--warn)}
+.sum{color:var(--ink-2);font-size:.95rem}
+.sum strong{color:var(--ink)}
+/* ramp */
+.ramp{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:14px 16px;border-radius:12px;background:var(--surface-2);margin-bottom:22px}
+.btn.ramp-go{background:var(--heat);color:var(--heat-ink);border-color:var(--heat);font-size:1.1rem;padding:12px 22px;border-radius:10px}
+.clock{display:flex;gap:28px;flex-wrap:wrap}
+.clock div{display:flex;flex-direction:column}
+.clock span{font-size:.85rem;color:var(--ink-2)}
+.clock b{font-size:1.6rem;font-weight:600}
+/* rack — laid out as it sits in the bath: back row on top, front row (observer side) below */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 14px;font-size:.95rem}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+.legend .sw{width:22px;height:22px;font-size:.75rem}
+.bath{border-radius:14px;padding:12px;background:color-mix(in srgb,var(--teal) 9%,var(--surface-2));border:1px solid var(--line)}
+.rack{display:grid;grid-template-columns:auto repeat(6,minmax(0,1fr));grid-template-rows:auto auto auto;gap:10px}
+.rack > *{grid-column:var(--dc);grid-row:var(--dr)}
+.side{align-self:center;font-weight:700;font-size:.85rem;color:var(--ink-2);writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+.side small{font-weight:400}
+.ends{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-2);padding:0 2px}
+.m-only{display:none}
+.pos{display:flex;gap:8px;background:color-mix(in srgb,var(--gc,var(--glass)) 13%,var(--surface));border:1px solid var(--line);border-radius:10px;padding:8px;min-width:0;transition:border-color .15s,box-shadow .15s}
+.pos.hl{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent)}
+.pos.rec{background:color-mix(in srgb,var(--gc) 34%,var(--surface));border-color:var(--gc)}
+.pos.blind:not(.rec){background:var(--surface)}
+.pos.empty{background:transparent;border-style:dashed}
+.pos input{background:var(--surface)}
+.pos-body{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.pos-head{display:flex;align-items:center;gap:6px}
+.pos-head b{font-size:1.15rem;font-weight:800;line-height:1}
+.pos-head .sw{width:20px;height:20px;font-size:.72rem;border-radius:5px}
+.pos-grp{font-size:.8rem;line-height:1.25;color:var(--ink-2);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere;min-height:2.5em}
+.pos input[type=time]{font-size:.8rem;padding:4px 5px}
+.pos input[type=time]::-webkit-calendar-picker-indicator{display:none}
+.pos input{padding:5px 7px;font-size:.85rem}
+.pos input[data-f=ctmax]{font-size:1.1rem;font-weight:600;padding:6px 8px}
+.pos input.bad{border-color:var(--err);background:var(--err-bg)}
+.pos .el{font-size:.78rem;color:var(--ink-2);min-height:1.1em}
+.pos.static .pos-body{justify-content:flex-start}
+@media (max-width:860px){
+  .rack{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto;gap:8px}
+  .rack > *{grid-column:var(--mc);grid-row:var(--mr)}
+  .side{writing-mode:horizontal-tb;transform:none;align-self:end}
+  .d-only{display:none}
+  .m-only{display:block}
+  .endlab{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.8rem;color:var(--ink-2);align-self:center}
+}
+.muted{color:var(--ink-2)}
+.progress{font-size:.95rem;color:var(--ink-2);margin-top:10px}
+.emptystate{padding:28px;border:2px dashed var(--line);border-radius:12px;text-align:center;color:var(--ink-2)}
+/* export */
+details{margin-top:14px}
+summary{cursor:pointer;font-weight:600}
+.prev{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:8px;max-height:320px}
+.prev table{border-collapse:collapse;font-size:.8rem}
+.prev th,.prev td{padding:4px 8px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:left}
+.prev th{position:sticky;top:0;background:var(--surface-2)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;z-index:10}
+.toast.on{opacity:1}
+footer{margin-top:28px;display:flex;justify-content:flex-end}
+@media (max-width:640px){
+  .wrap{padding:16px 12px 48px}
+  h1{font-size:1.6rem}
+  section.panel{padding:16px}
+  .gtable thead{display:none}
+  .gtable tr{display:grid;grid-template-columns:34px 1fr 1fr;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .gtable td{padding:0}
+  .gtable td.n,.gtable td.x{grid-column:2 / span 1}
+  .gtable td.x{grid-column:3}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ZEAL CT<sub>max</sub> Logger</h1>
+    <div class="saved" id="saved">Changes are kept in this browser</div>
+  </header>
+
+  <section class="panel" aria-labelledby="h-meta">
+    <h2 id="h-meta"><span class="n">1</span>Session details</h2>
+    <p class="hint">Applies to every assay in this session and is written to each row of the export.</p>
+    <div class="meta-grid">
+      <label class="f">Observer initials<input type="text" id="m-observer" autocomplete="off" maxlength="8"></label>
+      <label class="f">Experiment date<input type="date" id="m-date"></label>
+      <label class="f">Water bath ID<input type="text" id="m-bath" autocomplete="off"></label>
+      <label class="f">Thermometer ID<input type="text" id="m-thermo" autocomplete="off"></label>
+    </div>
+    <div class="meta-grid" id="customMeta" style="margin-top:14px"></div>
+    <button class="btn" id="addField" style="margin-top:14px">Add metadata field</button>
+  </section>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <section class="panel" aria-labelledby="h-setup">
+    <h2 id="h-setup"><span class="n">2</span>Groups and tube layout</h2>
+    <p class="hint">Enter a population or species, a treatment, or both. Rows left blank are dropped. Tube assignments are randomized across all 12 positions, including the thermometer.</p>
+    <div id="setup"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-run">
+    <h2 id="h-run"><span class="n">3</span>Run the assay</h2>
+    <p class="hint">Before the ramp starts, the grid shows which group goes in each tube so you can load the rack. Once you press Ramp started, group identities are hidden and tubes are scored by number only. Record the thermometer reading as each individual reaches CTmax; the time is stamped automatically and can be corrected.</p>
+    <div id="run"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-exp">
+    <h2 id="h-exp"><span class="n">4</span>Export</h2>
+    <p class="hint">One row per individual. Population and treatment columns are included only if at least one group uses them.</p>
+    <div id="export"></div>
+  </section>
+
+  <footer><button class="btn ghost danger" id="clearAll">Start a new session</button></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+const LS = 'ctmax-bench-v1';
+const TUBES = 12, SLOTS = 11;
+const COLORS = ['#1B7F79','#7A4FB3','#B7791F','#2F6DB5','#B23A6E','#4E8A2E','#8A5A3B','#0E8FA6','#5B5FC7','#9C6B00','#4A5868'];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+const hms = d => `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const letter = i => String.fromCharCode(65 + i);
+
+function newAssay(prev){
+  return {
+    groups: prev ? prev.groups.map(g => ({pop:g.pop, trt:g.trt, n:g.n})) : [{pop:'',trt:'',n:''}],
+    mode: prev ? prev.mode : 'even',
+    layout: null, rampStart: null, entries: {}
+  };
+}
+function fresh(keepNames){ return {meta:{observer:'',date:today(),bath:'',thermo:'',custom:(keepNames||[]).map(n=>({name:n,value:''}))}, assays:[newAssay(null)], cur:0}; }
+function load(){
+  try { const r = localStorage.getItem(LS); if(!r) return null; const s = JSON.parse(r);
+    if(!s || !Array.isArray(s.assays) || !s.assays.length) return null; return s; } catch(e){ return null; }
+}
+let S = load() || fresh();
+if (S.cur >= S.assays.length) S.cur = 0;
+if (!Array.isArray(S.meta.custom)) S.meta.custom = [];
+function save(){ try { localStorage.setItem(LS, JSON.stringify(S)); } catch(e){} }
+const A = () => S.assays[S.cur];
+
+let toastT;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 2600); }
+
+const gid = g => [g.pop.trim(), g.trt.trim()].filter(Boolean).join('_');
+const gcolor = i => COLORS[i % COLORS.length];
+
+/* ---------- metadata ---------- */
+const metaMap = {observer:'#m-observer', date:'#m-date', bath:'#m-bath', thermo:'#m-thermo'};
+for (const [k, sel] of Object.entries(metaMap)){
+  const el = $(sel); el.value = S.meta[k] || '';
+  el.addEventListener('input', () => { S.meta[k] = el.value; save(); renderExport(); });
+}
+
+/* custom metadata fields: column name is the field name in snake_case */
+const RESERVED = ['observer_initials','experiment_date','water_bath_id','thermometer_id','assay','ramp_start','tube','group_id','population','treatment','ctmax_c','ctmax_time','time_to_ctmax_min','thermometer_tube','notes'];
+const snake = n => n.trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+function customCols(){
+  const seen = new Set(RESERVED);
+  return S.meta.custom.map(f => {
+    const base = snake(f.name); if (!base) return null;
+    let c = base, k = 2; while (seen.has(c)) c = `${base}_${k++}`;
+    seen.add(c); return c;
+  });
+}
+function updateColNames(){
+  const cols = customCols();
+  document.querySelectorAll('#customMeta .cf').forEach((el,i) => {
+    const c = cols[i], f = S.meta.custom[i];
+    el.querySelector('.cf-col').textContent = c ? (c !== snake(f.name) ? `Column: ${c} (name already used)` : `Column: ${c}`) : 'Name the field to include it';
+  });
+}
+function renderCustomMeta(){
+  const el = $('#customMeta');
+  el.style.display = S.meta.custom.length ? '' : 'none';
+  el.innerHTML = S.meta.custom.map((f,i) => `
+    <div class="cf" data-i="${i}">
+      <div class="cf-top">
+        <input type="text" data-k="name" value="${esc(f.name)}" placeholder="Field name, e.g. Salinity (psu)" aria-label="Name of custom field ${i+1}">
+        <button class="cf-x" data-rm="${i}" aria-label="Remove field ${esc(f.name) || i+1}" title="Remove field">×</button>
+      </div>
+      <input type="text" data-k="value" value="${esc(f.value)}" autocomplete="off" aria-label="Value for ${esc(f.name) || 'custom field '+(i+1)}">
+      <span class="cf-col"></span>
+    </div>`).join('');
+  el.querySelectorAll('input').forEach(inp => inp.oninput = () => {
+    const i = +inp.closest('.cf').dataset.i; S.meta.custom[i][inp.dataset.k] = inp.value;
+    save(); if (inp.dataset.k === 'name') updateColNames(); renderExport();
+  });
+  el.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => {
+    const f = S.meta.custom[+b.dataset.rm];
+    if ((f.name || f.value) && !confirm(`Remove the field "${f.name || 'unnamed'}"? It will no longer appear in the export.`)) return;
+    S.meta.custom.splice(+b.dataset.rm,1); save(); renderCustomMeta(); renderExport();
+  });
+  updateColNames();
+}
+$('#addField').onclick = () => {
+  S.meta.custom.push({name:'',value:''}); save(); renderCustomMeta();
+  const ins = $('#customMeta').querySelectorAll('.cf:last-child input[data-k=name]'); if (ins[0]) ins[0].focus();
+};
+renderCustomMeta();
+
+/* ---------- tabs ---------- */
+function assayStatus(a){
+  if (!a.layout) return '';
+  const inds = a.layout.filter(t => t.kind==='ind');
+  const done = inds.filter(t => (a.entries[t.tube]?.ctmax ?? '') !== '').length;
+  if (inds.length && done === inds.length) return 'done';
+  return a.rampStart ? 'run' : '';
+}
+function renderTabs(){
+  const el = $('#tabs');
+  el.innerHTML = S.assays.map((a,i) =>
+    `<button class="tab" role="tab" aria-selected="${i===S.cur}" data-i="${i}"><span class="dot ${assayStatus(a)}"></span>Assay ${i+1}</button>`
+  ).join('') +
+  `<button class="btn ghost" id="addAssay">Add assay</button>` +
+  (S.assays.length > 1 ? `<button class="btn ghost danger" id="delAssay">Delete assay ${S.cur+1}</button>` : '');
+  el.querySelectorAll('.tab').forEach(b => b.onclick = () => { S.cur = +b.dataset.i; setupMsg = null; revealed = false; save(); renderAll(); });
+  $('#addAssay').onclick = () => {
+    S.assays.push(newAssay(S.assays[S.assays.length-1])); S.cur = S.assays.length-1; save(); renderAll();
+    toast(`Assay ${S.cur+1} added with the same groups`);
+  };
+  const d = $('#delAssay');
+  if (d) d.onclick = () => {
+    if (!confirm(`Delete assay ${S.cur+1} and any data recorded in it?`)) return;
+    S.assays.splice(S.cur,1); S.cur = Math.max(0, S.cur-1); save(); renderAll();
+  };
+}
+
+/* ---------- setup ---------- */
+let setupMsg = null;
+function renderSetup(){
+  const a = A(), locked = !!a.layout, started = !!a.rampStart;
+  const el = $('#setup');
+  const setMode = a.mode === 'set';
+  const rows = a.groups.map((g,i) => `
+    <tr data-i="${i}">
+      <td><span class="sw" style="--gc:${gcolor(i)}">${letter(i)}</span></td>
+      <td><input type="text" data-f="pop" value="${esc(g.pop)}" placeholder="e.g. Acartia tonsa, Pop 1" aria-label="Population or species, group ${letter(i)}" ${locked?'disabled':''}></td>
+      <td><input type="text" data-f="trt" value="${esc(g.trt)}" placeholder="e.g. 18C" aria-label="Treatment, group ${letter(i)}" ${locked?'disabled':''}></td>
+      ${setMode ? `<td class="n"><input type="number" min="0" max="11" step="1" data-f="n" value="${esc(g.n)}" placeholder="n" aria-label="Individuals, group ${letter(i)}" ${locked?'disabled':''}></td>` : ''}
+      <td class="x">${!locked && a.groups.length>1 ? `<button class="btn ghost" data-rm="${i}" aria-label="Remove group ${letter(i)}">Remove</button>`:''}</td>
+    </tr>`).join('');
+  el.innerHTML = `
+    <div class="mode" role="radiogroup" aria-label="How to allocate individuals">
+      <label><input type="radio" name="mode" value="even" ${!setMode?'checked':''} ${locked?'disabled':''}> Split 11 individuals evenly across groups</label>
+      <label><input type="radio" name="mode" value="set" ${setMode?'checked':''} ${locked?'disabled':''}> Set the number per group</label>
+    </div>
+    <table class="gtable">
+      <thead><tr><th></th><th>Population / species</th><th>Treatment</th>${setMode?'<th>Individuals</th>':''}<th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="row" style="margin-top:12px;justify-content:space-between">
+      <div class="row">
+        ${locked ? `
+          <button class="btn primary" id="rerand" ${started?'disabled':''}>Re-randomize layout</button>
+          <button class="btn" id="editGroups" ${started?'disabled':''}>Edit groups</button>
+          ${started?'<span class="sum">Layout is fixed once the ramp has started.</span>':''}`
+        : `
+          <button class="btn" id="addGroup" ${a.groups.length>=SLOTS?'disabled':''}>Add group</button>
+          <button class="btn primary" id="rand">Randomize tube layout</button>`}
+      </div>
+      <div class="sum" id="sum"></div>
+    </div>
+    ${setupMsg ? `<div class="msg ${setupMsg.type}">${esc(setupMsg.text)}</div>` : ''}`;
+  updateSum();
+
+  el.querySelectorAll('input[name=mode]').forEach(r => r.onchange = () => { a.mode = r.value; setupMsg=null; save(); renderSetup(); });
+  el.querySelectorAll('tbody input').forEach(inp => inp.oninput = () => {
+    const i = +inp.closest('tr').dataset.i; a.groups[i][inp.dataset.f] = inp.value; save(); updateSum();
+  });
+  el.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { a.groups.splice(+b.dataset.rm,1); save(); renderSetup(); });
+  const ag = $('#addGroup'); if (ag) ag.onclick = () => {
+    a.groups.push({pop:'',trt:'',n:''}); save(); renderSetup();
+    const ins = el.querySelectorAll('tbody tr:last-child input'); if (ins[0]) ins[0].focus();
+  };
+  const r = $('#rand'); if (r) r.onclick = randomize;
+  const rr = $('#rerand'); if (rr) rr.onclick = () => {
+    if (hasEntries(a) && !confirm('Re-randomizing clears the CTmax values recorded for this assay. Continue?')) return;
+    randomize();
+  };
+  const eg = $('#editGroups'); if (eg) eg.onclick = () => {
+    if (hasEntries(a) && !confirm('Editing groups clears the tube layout and any CTmax values recorded for this assay. Continue?')) return;
+    a.layout = null; a.entries = {}; setupMsg = null; save(); renderAll();
+  };
+}
+function hasEntries(a){ return Object.values(a.entries).some(e => (e.ctmax ?? '') !== '' || (e.notes ?? '') !== ''); }
+function updateSum(){
+  const a = A(), el = $('#sum'); if (!el) return;
+  const live = a.groups.filter(g => gid(g));
+  if (a.layout){
+    const inds = a.layout.filter(t=>t.kind==='ind').length;
+    el.innerHTML = `<strong>${inds}</strong> individuals in <strong>${a.groups.length}</strong> group${a.groups.length>1?'s':''}, thermometer in tube <strong>${a.layout.find(t=>t.kind==='thermo').tube}</strong>`;
+    return;
+  }
+  if (a.mode === 'set'){
+    const tot = live.reduce((s,g) => s + (parseInt(g.n,10)||0), 0);
+    el.innerHTML = `<strong>${tot}</strong> of ${SLOTS} tubes assigned`;
+  } else {
+    el.innerHTML = live.length ? `${live.length} group${live.length>1?'s':''}, about ${(SLOTS/live.length).toFixed(1)} each` : '';
+  }
+}
+function rint(n){ const b = new Uint32Array(1); crypto.getRandomValues(b); return b[0] % n; }
+function shuffle(arr){ for (let i = arr.length-1; i > 0; i--){ const j = rint(i+1); [arr[i],arr[j]] = [arr[j],arr[i]]; } return arr; }
+function randomize(){
+  const a = A();
+  const groups = a.groups.filter(g => gid(g)).map(g => ({pop:g.pop.trim(), trt:g.trt.trim(), n:g.n}));
+  setupMsg = null;
+  if (!groups.length){ setupMsg = {type:'err', text:'Add at least one group with a population/species or treatment.'}; return renderSetup(); }
+  const ids = groups.map(gid);
+  const dup = ids.find((x,i) => ids.indexOf(x) !== i);
+  if (dup){ setupMsg = {type:'err', text:`Two groups are both "${dup}". Give each group a unique combination.`}; return renderSetup(); }
+  let counts;
+  if (a.mode === 'set'){
+    counts = groups.map(g => parseInt(g.n,10));
+    if (counts.some(c => !Number.isInteger(c) || c < 1)){ setupMsg = {type:'err', text:'Enter a whole number of at least 1 for every group.'}; return renderSetup(); }
+    const tot = counts.reduce((s,c)=>s+c,0);
+    if (tot > SLOTS){ setupMsg = {type:'err', text:`That is ${tot} individuals; an assay holds ${SLOTS}. Reduce the counts by ${tot-SLOTS}.`}; return renderSetup(); }
+    if (tot < SLOTS) setupMsg = {type:'warn', text:`${SLOTS-tot} tube${SLOTS-tot>1?'s':''} will be left empty.`};
+  } else {
+    if (groups.length > SLOTS){ setupMsg = {type:'err', text:`An assay holds ${SLOTS} individuals, so it can include at most ${SLOTS} groups.`}; return renderSetup(); }
+    const base = Math.floor(SLOTS / groups.length), rem = SLOTS % groups.length;
+    counts = groups.map(() => base);
+    shuffle(groups.map((_,i)=>i)).slice(0, rem).forEach(i => counts[i]++);
+    if (rem) setupMsg = {type:'warn', text:`11 doesn't divide evenly: ${counts.map((c,i)=>`${letter(i)} ${c}`).join(', ')}. The extra individuals went to randomly chosen groups.`};
+  }
+  groups.forEach((g,i) => { g.n = String(counts[i]); });
+  const items = [{kind:'thermo'}];
+  counts.forEach((c,gi) => { for (let k=0;k<c;k++) items.push({kind:'ind', g:gi}); });
+  while (items.length < TUBES) items.push({kind:'empty'});
+  shuffle(items);
+  a.groups = groups;
+  a.layout = items.map((it,i) => ({...it, tube:i+1}));
+  a.entries = {};
+  save(); renderAll();
+  toast('Tube layout randomized');
+}
+
+/* ---------- run ---------- */
+let hlTube = null;
+let revealed = false;
+const isBlind = a => !!(a && a.layout && a.rampStart) && !revealed;
+const isRunningIncomplete = a => !!(a.layout && a.rampStart) && a.layout.some(t => t.kind==='ind' && (a.entries[t.tube]?.ctmax ?? '') === '');
+function elapsedMin(a, t){
+  if (!a.rampStart || !t) return '';
+  const d = new Date(a.rampStart); const p = t.split(':').map(Number);
+  if (p.some(isNaN)) return '';
+  let diff = new Date(d.getFullYear(), d.getMonth(), d.getDate(), p[0], p[1], p[2]||0).getTime() - a.rampStart;
+  if (diff < -12*3600e3) diff += 86400e3;
+  if (diff < -1000) return '';
+  return (Math.max(0,diff)/60000).toFixed(2);
+}
+function fmtElapsed(ms){ const s = Math.max(0, Math.floor(ms/1000)); return `${pad(Math.floor(s/60))}:${pad(s%60)}`; }
+function renderRun(){
+  const a = A(), el = $('#run');
+  if (!a.layout){ el.innerHTML = `<div class="emptystate">Randomize the tube layout above to set up the rack.</div>`; return; }
+  const started = !!a.rampStart;
+  el.innerHTML = `
+    <div class="ramp">
+      ${started
+        ? `<div class="clock">
+             <div><span>Ramp started</span><b class="mono">${hms(new Date(a.rampStart))}</b></div>
+             <div><span>Elapsed (min:s)</span><b class="mono" id="elapsed">${fmtElapsed(Date.now()-a.rampStart)}</b></div>
+           </div>
+           <button class="btn" id="rampReset">Reset start time</button>`
+        : `<button class="btn ramp-go" id="rampGo">Ramp started</button>
+           <span class="muted">Press when the water bath begins heating.</span>`}
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="bath"><div class="rack" id="rack"></div></div>
+    <div class="progress" id="progress"></div>`;
+  const go = $('#rampGo'); if (go) go.onclick = () => { revealed = false; a.rampStart = Date.now(); save(); renderAll(); toast(`Ramp started at ${hms(new Date(a.rampStart))}`); };
+  const rs = $('#rampReset'); if (rs) rs.onclick = () => {
+    if (!confirm('Clear the ramp start time? Recorded CTmax values are kept, but group assignments will be visible again until you press Ramp started.')) return;
+    a.rampStart = null; save(); renderAll();
+  };
+  renderLegend(); renderRack();
+}
+function renderLegend(){
+  const a = A();
+  if (isBlind(a)){
+    $('#legend').innerHTML = `<span class="muted">Groups are hidden while the ramp runs, so tubes are scored blind.</span> <button class="btn ghost" id="reveal">Show groups</button>`;
+    $('#reveal').onclick = () => { if (!confirm('Show group assignments for this assay? This un-blinds the observer.')) return; revealed = true; renderRun(); renderExport(); };
+    return;
+  }
+  const hide = (a.rampStart && revealed) ? ` <button class="btn ghost" id="hideG">Hide groups</button>` : '';
+  $('#legend').innerHTML = a.groups.map((g,i) => {
+    const c = a.layout.filter(t=>t.kind==='ind' && t.g===i).length;
+    return `<span><span class="sw" style="--gc:${gcolor(i)}">${letter(i)}</span>${esc(gid(g))} <span class="muted">(n = ${c})</span></span>`;
+  }).join('') + `<span><span class="sw" style="--gc:var(--heat)">T</span>Thermometer</span>` + hide;
+  const hg = $('#hideG'); if (hg) hg.onclick = () => { revealed = false; renderRun(); renderExport(); };
+}
+/* Tube t sits in column ceil(t/2) from the left; odd tubes in the front row, even tubes in the back row.
+   Desktop: back row on top, front (observer side) below. Narrow screens: rotated, left end at top. */
+function place(t){
+  const col = Math.ceil(t/2), front = t % 2 === 1;
+  return `--dc:${col+1};--dr:${front?2:1};--mc:${front?2:3};--mr:${col+1}`;
+}
+function renderRack(){
+  const a = A(), el = $('#rack'); if (!el) return;
+  const labels = `
+    <div class="side" style="--dc:1;--dr:1;--mc:3;--mr:1">Back</div>
+    <div class="side" style="--dc:1;--dr:2;--mc:2;--mr:1">Front <small>(your side)</small></div>
+    <div class="ends d-only" style="--dc:2 / -1;--dr:3"><span>Left end</span><span>Right end</span></div>
+    <div class="endlab m-only" style="--mc:1;--mr:2">Left end</div>
+    <div class="endlab m-only" style="--mc:1;--mr:7">Right end</div>`;
+  const blind = isBlind(a);
+  const cells = [...a.layout].sort((x,y)=>x.tube-y.tube).map(t => {
+    if (t.kind === 'thermo') return `
+      <div class="pos static thermo" style="${place(t.tube)};--gc:var(--heat)" data-tube="${t.tube}">
+                <div class="pos-body"><div class="pos-head"><b>${t.tube}</b><span class="sw" style="--gc:var(--heat)">T</span></div><div class="pos-grp">Thermometer</div></div>
+      </div>`;
+    if (t.kind === 'empty') return `
+      <div class="pos static empty" style="${place(t.tube)}" data-tube="${t.tube}">
+                <div class="pos-body"><div class="pos-head"><b>${t.tube}</b></div><div class="pos-grp">Empty</div></div>
+      </div>`;
+    const e = a.entries[t.tube] || {}, g = gid(a.groups[t.g]);
+    const rec = (e.ctmax ?? '') !== '', m = elapsedMin(a, e.time);
+    const gc = blind ? 'var(--teal)' : gcolor(t.g);
+    return `
+      <div class="pos ${rec?'rec':''} ${blind?'blind':''}" style="${place(t.tube)};--gc:${gc}" data-tube="${t.tube}">
+        <div class="pos-body">
+          <div class="pos-head"><b>${t.tube}</b>${blind ? '' : `<span class="sw" style="--gc:${gc}">${letter(t.g)}</span>`}</div>
+          ${blind ? '' : `<div class="pos-grp" title="${esc(g)}">${esc(g)}</div>`}
+          <input class="mono ${badTemp(e.ctmax)?'bad':''}" type="number" step="0.1" inputmode="decimal" placeholder="°C" data-f="ctmax" data-tube="${t.tube}" value="${esc(e.ctmax ?? '')}" aria-label="CTmax for tube ${t.tube}${blind?'':', '+esc(g)}">
+          <input class="mono" type="time" step="1" data-f="time" data-tube="${t.tube}" value="${esc(e.time ?? '')}" aria-label="Time reached, tube ${t.tube}">
+          <span class="el" data-el="${t.tube}">${m!==''?`+${m} min`:''}</span>
+          <input type="text" data-f="notes" data-tube="${t.tube}" value="${esc(e.notes ?? '')}" placeholder="Notes" aria-label="Notes for tube ${t.tube}">
+        </div>
+      </div>`;
+  }).join('');
+  el.innerHTML = labels + cells;
+  el.querySelectorAll('input').forEach(inp => {
+    const tube = +inp.dataset.tube, f = inp.dataset.f;
+    const card = inp.closest('.pos');
+    inp.addEventListener('focus', () => setHl(tube));
+    inp.addEventListener('input', () => {
+      const e = a.entries[tube] || (a.entries[tube] = {});
+      e[f] = inp.value.trim();
+      if (f === 'ctmax'){
+        inp.classList.toggle('bad', badTemp(e.ctmax));
+        const ti = card.querySelector('input[data-f="time"]');
+        if (e.ctmax !== '' && !e.time){ e.time = hms(new Date()); ti.value = e.time; }
+        if (e.ctmax === ''){ e.time = ''; ti.value = ''; }
+        card.classList.toggle('rec', e.ctmax !== '');
+      }
+      const m = elapsedMin(a, e.time);
+      card.querySelector('.el').textContent = m!=='' ? `+${m} min` : '';
+      save(); renderProgress(); renderTabs(); renderExport();
+    });
+    if (f === 'ctmax') inp.addEventListener('keydown', ev => {
+      if ((ev.key === 'ArrowUp' || ev.key === 'ArrowDown') && inp.value === ''){
+        // Start from the latest recorded reading in this assay rather than 0
+        const last = Object.values(a.entries).filter(x => (x.ctmax ?? '') !== '' && !isNaN(Number(x.ctmax)))
+          .sort((x,y) => (x.time||'').localeCompare(y.time||'')).pop();
+        if (last){ ev.preventDefault(); inp.value = Number(last.ctmax).toFixed(1); inp.dispatchEvent(new Event('input')); }
+        return;
+      }
+      if (ev.key !== 'Enter') return; ev.preventDefault();
+      const all = [...el.querySelectorAll('input[data-f="ctmax"]')];
+      const i = all.indexOf(inp);
+      const next = all.slice(i+1).concat(all.slice(0, i)).find(x => x.value === '');
+      if (next) next.focus(); else inp.blur();
+    });
+  });
+  if (hlTube) setHl(hlTube);
+  renderProgress();
+}
+function badTemp(v){ if (v === '' || v == null) return false; const n = Number(v); return isNaN(n) || n < 0 || n > 60; }
+function setHl(tube){
+  hlTube = tube;
+  document.querySelectorAll('#rack .pos').forEach(s => s.classList.toggle('hl', +s.dataset.tube === tube));
+}
+function renderProgress(){
+  const a = A(), el = $('#progress'); if (!el) return;
+  const inds = a.layout.filter(t=>t.kind==='ind');
+  const done = inds.filter(t => (a.entries[t.tube]?.ctmax ?? '') !== '').length;
+  const bad = inds.filter(t => badTemp(a.entries[t.tube]?.ctmax)).length;
+  el.innerHTML = `${done} of ${inds.length} CTmax values recorded.` +
+    (bad ? ` <span style="color:var(--err)">${bad} value${bad>1?'s look':' looks'} out of range (0–60 °C); check before exporting.</span>` : '') +
+    (!a.rampStart && done ? ` <span style="color:var(--warn)">The ramp start time isn't set, so time to CTmax will be blank.</span>` : '');
+}
+setInterval(() => { const a = A(), el = $('#elapsed'); if (el && a.rampStart) el.textContent = fmtElapsed(Date.now()-a.rampStart); }, 1000);
+
+/* ---------- export ---------- */
+let scope = 'all';
+function buildTable(which){
+  const list = S.assays.map((a,i) => ({a, n:i+1})).filter(x => x.a.layout && (which==='all' || x.n===S.cur+1));
+  const rows = [];
+  let usePop = false, useTrt = false;
+  const cc = customCols(), custom = S.meta.custom.map((f,i) => [cc[i], f.value.trim()]).filter(([c]) => c);
+  for (const {a, n} of list){
+    const th = a.layout.find(t => t.kind==='thermo');
+    for (const t of a.layout.filter(t=>t.kind==='ind').sort((x,y)=>x.tube-y.tube)){
+      const g = a.groups[t.g], e = a.entries[t.tube] || {};
+      if (g.pop) usePop = true; if (g.trt) useTrt = true;
+      rows.push({
+        observer_initials: S.meta.observer.trim(), experiment_date: S.meta.date, water_bath_id: S.meta.bath.trim(), thermometer_id: S.meta.thermo.trim(),
+        ...Object.fromEntries(custom),
+        assay: n, ramp_start: a.rampStart ? hms(new Date(a.rampStart)) : '',
+        tube: t.tube, group_id: gid(g), population: g.pop, treatment: g.trt,
+        ctmax_c: e.ctmax ?? '', ctmax_time: e.time ?? '', time_to_ctmax_min: elapsedMin(a, e.time),
+        thermometer_tube: th ? th.tube : '', notes: e.notes ?? ''
+      });
+    }
+  }
+  const cols = ['observer_initials','experiment_date','water_bath_id','thermometer_id', ...custom.map(([c]) => c), 'assay','ramp_start','tube','group_id']
+    .concat(usePop?['population']:[], useTrt?['treatment']:[], ['ctmax_c','ctmax_time','time_to_ctmax_min','thermometer_tube','notes']);
+  return {cols, rows};
+}
+const csvCell = v => { const s = String(v ?? ''); return /[",\r\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; };
+function toCSV({cols, rows}){ return [cols.join(','), ...rows.map(r => cols.map(c => csvCell(r[c])).join(','))].join('\r\n') + '\r\n'; }
+function fileName(){
+  const safe = s => (s||'').trim().replace(/[^A-Za-z0-9-]+/g,'-').replace(/^-|-$/g,'');
+  const parts = ['CTmax', safe(S.meta.date)||today(), safe(S.meta.bath), safe(S.meta.observer)];
+  if (scope !== 'all') parts.push(`assay${S.cur+1}`);
+  return parts.filter(Boolean).join('_') + '.csv';
+}
+function renderExport(){
+  const el = $('#export');
+  const t = buildTable(scope);
+  const missingMeta = Object.entries({observer:'observer initials', date:'experiment date', bath:'water bath ID', thermo:'thermometer ID'})
+    .filter(([k]) => !(S.meta[k]||'').trim()).map(([,v]) => v);
+  const blanks = t.rows.filter(r => r.ctmax_c === '').length;
+  const bads = t.rows.filter(r => badTemp(r.ctmax_c)).length;
+  const warns = [];
+  S.meta.custom.forEach((f,i) => { if (snake(f.name) && !f.value.trim()) missingMeta.push(f.name.trim()); });
+  if (missingMeta.length) warns.push(`Missing ${missingMeta.join(', ')}.`);
+  if (blanks) warns.push(`${blanks} individual${blanks>1?'s have':' has'} no CTmax yet; ${blanks>1?'they':'it'} will export with a blank value.`);
+  if (bads) warns.push(`${bads} CTmax value${bads>1?'s are':' is'} outside 0–60 °C.`);
+  const setupless = S.assays.filter(a => !a.layout).length;
+  if (scope==='all' && setupless) warns.push(`${setupless} assay${setupless>1?'s have':' has'} no tube layout and will be skipped.`);
+  el.innerHTML = `
+    <div class="row">
+      <label class="f" style="flex-direction:row;align-items:center;gap:8px">Include
+        <select id="scope" style="width:auto">
+          <option value="all" ${scope==='all'?'selected':''}>All assays (${S.assays.length})</option>
+          <option value="cur" ${scope==='cur'?'selected':''}>Assay ${S.cur+1} only</option>
+        </select></label>
+      <button class="btn primary" id="dl" ${t.rows.length?'':'disabled'}>Download CSV</button>
+      <button class="btn" id="copy" ${t.rows.length?'':'disabled'}>Copy CSV</button>
+      <span class="sum">${t.rows.length} row${t.rows.length!==1?'s':''}, file <span class="mono">${esc(fileName())}</span></span>
+    </div>
+    ${warns.length ? `<div class="msg warn">${warns.map(esc).join('<br>')}</div>` : ''}
+    ${t.rows.length && previewBlocked() ? `<p class="muted" style="margin:12px 0 0">Preview is hidden until every running assay is fully scored, since it shows group assignments.</p>` : t.rows.length ? `<details id="pv" ${previewOpen?'open':''}><summary>Preview</summary><div class="prev"><table>
+      <thead><tr>${t.cols.map(c=>`<th class="mono">${c}</th>`).join('')}</tr></thead>
+      <tbody>${t.rows.map(r=>`<tr>${t.cols.map(c=>`<td class="mono">${esc(r[c])}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div></details>` : `<p class="muted" style="margin:12px 0 0">Nothing to export yet. Randomize a tube layout to create rows.</p>`}`;
+  $('#scope').onchange = e => { scope = e.target.value==='all'?'all':'cur'; renderExport(); };
+  const pv = $('#pv'); if (pv) pv.ontoggle = () => { previewOpen = pv.open; };
+  const dl = $('#dl'); if (dl) dl.onclick = download;
+  const cp = $('#copy'); if (cp) cp.onclick = async () => {
+    try { await navigator.clipboard.writeText(toCSV(buildTable(scope))); markExported(); toast('CSV copied to clipboard'); }
+    catch(e){ toast('Copy was blocked by the browser. Use Download CSV instead.'); }
+  };
+}
+let previewOpen = false;
+function previewBlocked(){
+  const list = scope==='all' ? S.assays : [A()];
+  return list.some(a => isRunningIncomplete(a) && !(a === A() && revealed));
+}
+const downloadsP = (window.claude && typeof window.claude.use === 'function') ? window.claude.use('downloads').catch(()=>null) : Promise.resolve(null);
+async function download(){
+  const csv = toCSV(buildTable(scope)), name = fileName();
+  const d = await downloadsP;
+  if (d){
+    try { await d.save({filename:name, data:csv}); markExported(); toast(`Saved ${name}`); }
+    catch(e){
+      if (e && e.code === 'declined') toast('Download cancelled');
+      else if (e && e.code === 'rate_limited') toast('A save prompt is already open');
+      else { toast('Download isn’t available here. Use Copy CSV instead.'); }
+    }
+    return;
+  }
+  try {
+    const url = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+    const link = document.createElement('a'); link.href = url; link.download = name;
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    markExported(); toast(`Saved ${name}`);
+  } catch(e){ toast('Download isn’t available here. Use Copy CSV instead.'); }
+}
+
+$('#clearAll').onclick = () => {
+  if (!confirm((needsWarning() ? 'Some data has not been exported since it was last changed.\n\n' : '') + 'Start a new session? This clears the session details and every assay stored in this browser.')) return;
+  S = fresh(S.meta.custom.map(f => f.name).filter(n => n.trim())); save(); renderCustomMeta();
+  for (const [k, sel] of Object.entries(metaMap)) $(sel).value = S.meta[k];
+  setupMsg = null; renderAll();
+};
+
+function renderAll(){ renderTabs(); renderSetup(); renderRun(); renderExport(); }
+/* ---------- leave-page warning ---------- */
+// Signature of everything that ends up in the CSV; compared with the last export.
+const dataSig = () => JSON.stringify([S.meta, S.assays.map(a => [a.groups, a.layout, a.rampStart, a.entries])]);
+function markExported(){ S.exportedSig = dataSig(); save(); }
+function hasData(){ return S.assays.some(a => a.rampStart || Object.values(a.entries).some(e => (e.ctmax ?? '') !== '' || (e.notes ?? '') !== '')); }
+function needsWarning(){ return hasData() && S.exportedSig !== dataSig(); }
+window.addEventListener('beforeunload', ev => {
+  if (!needsWarning()) return;
+  ev.preventDefault();
+  ev.returnValue = '';
+  return '';
+});
+
+renderAll();
+})();
+</script>
+</body>
+</html>
