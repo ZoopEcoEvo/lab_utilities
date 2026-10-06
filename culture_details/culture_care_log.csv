@@ -21,3 +21,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261005224153-4dc2sa,2026-10-05,Skistodiaptomus pallidus,CPCT,fed,MCS,,,,2026-10-05T22:41:53.885Z
 20261006153602-3h04ke,2026-10-06,Skistodiaptomus pallidus,HPPA,fed,Jackson,Medium,,,2026-10-06T15:36:02.265Z
 20261006153602-qm86a0,2026-10-06,Skistodiaptomus pallidus,HPPA,water_change,Jackson,Medium,2,,2026-10-06T15:36:02.265Z
+20261006153634-fe2aqa,2026-10-06,Skistodiaptomus pallidus,CPCT,fed,Jackson,Medium,,Lots of algae,2026-10-06T15:36:34.563Z
+20261006153634-ttjk78,2026-10-06,Skistodiaptomus pallidus,CPCT,water_change,Jackson,Medium,2,Lots of algae,2026-10-06T15:36:34.563Z
