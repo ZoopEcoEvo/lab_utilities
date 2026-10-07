@@ -25,3 +25,4 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261006153634-ttjk78,2026-10-06,Skistodiaptomus pallidus,CPCT,water_change,Jackson,Medium,2,Lots of algae,2026-10-06T15:36:34.563Z
 20261006170326-c9s2my,2026-10-06,Leptodiaptomus siciloides,BRNY,fed,AH,Low,,"many adults and copepodites, most algae removed, some retained",2026-10-06T17:03:26.653Z
 20261006170326-5w716u,2026-10-06,Leptodiaptomus siciloides,BRNY,water_change,AH,Low,7,"many adults and copepodites, most algae removed, some retained",2026-10-06T17:03:26.653Z
+20261007182855-guim5x,2026-10-07,Skistodiaptomus pallidus,CPCO,water_change,Lindsey,Medium,7,Some algae removed,2026-10-07T18:28:55.091Z
