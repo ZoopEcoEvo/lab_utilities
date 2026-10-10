@@ -41,3 +41,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261009183320-hap6t6,2026-10-09,Skistodiaptomus pallidus,KMCO,fed,Jace,,,,2026-10-09T18:33:20.598Z
 20261009183358-23ixdb,2026-10-09,Leptodiaptomus siciloides,BRNY,fed,Jace,,,,2026-10-09T18:33:58.114Z
 20261009183517-luijkq,2026-10-07,Skistodiaptomus pallidus,SLMA,water_change,Lindsey,Low,2,All lifestages,2026-10-09T18:35:17.148Z
+20261010181126-2tkaul,2026-10-09,Skistodiaptomus pallidus,LLPA,fed,AH,Low,,"maninly adults/copepodites, some algal retained",2026-10-10T18:11:26.688Z
+20261010181126-vfuld5,2026-10-09,Skistodiaptomus pallidus,LLPA,water_change,AH,Low,4,"maninly adults/copepodites, some algal retained",2026-10-10T18:11:26.688Z
