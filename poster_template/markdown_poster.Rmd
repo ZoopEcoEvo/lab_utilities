@@ -1,0 +1,112 @@
+---
+title: Placeholder title for a scientific poster of approximately average length - this should be descriptive (can you summarize the main point?)
+author:
+  - name: Author Number One
+    affil: 1
+  - name: Author Number Two
+    affil: 1
+affiliation:
+  - num: 1
+    address: Department of Biological Sciences
+column_numbers: 3
+columnline_col: "#ffffff"
+poster_height: "38in"
+poster_width: "45in"
+font_family: "Open Sans"
+primary_colour: 
+secondary_colour:
+accent_colour: 
+logoleft_name: https&#58;//raw.githubusercontent.com/ZoopEcoEvo/lab_utilities/main/lab_logos/text_logo_white.png
+logoright_name: 
+output: 
+  posterdown::posterdown_html:
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# You need to install the package posterdown first: I recommend using this command:
+# remotes::install_github("brentthorne/posterdown")
+
+# See this site for documentation: https://github.com/brentthorne/posterdown/wiki
+# See this page for customization options: https://github.com/brentthorne/posterdown/wiki/posterdown_html
+
+
+```
+
+# Background
+
+Major bullet points here
+
+Important background information
+
+Keep this limited to just the main points
+
+You don't need lots of text - just what's needed
+
+Remember - it can be helpful to work backwards (what's your main point? What results do they need to understand this? What methods do you need to explain? What's the important background information?)
+
+# Objectives
+
+1.  Highlight the goals and hypotheses here
+2.  Aim two
+3.  Aim three
+
+## Hypotheses
+
+Be clear and concise but make sure to include enough detail that this section is understandable
+
+# Methods
+
+Bullet points only, or even better, include a schematic
+
+Method 1
+
+Method 2
+
+Method 3
+
+Statistical test of the hypothesis
+
+# Results
+
+```{r mytable, out.width='70%'}
+knitr::kable(iris[1:10, 1:4], caption = 'Table caption.',align = 'c',"html")
+```
+
+```{r standard-plot, out.width='90%', fig.align='center', fig.cap='Detailed figure description here.', fig.height=5}
+plot(mtcars[1:2])
+```
+
+```{r morefigs, out.width='90%', fig.align='center', fig.cap='Detailed figure description here.', fig.height=5}
+data <- iris
+
+plot(x = data$Sepal.Length, 
+     y = data$Sepal.Width, 
+     col = data$Species,
+     pch = 19, 
+     xlab = "Sepal Length (cm)",
+     ylab = "Sepal Width (cm)")
+
+```
+
+# Conclusion
+
+Emphasize the main points here
+
+You might have several concluding points
+
+Take-away messages
+
+Implications, etc.
+
+Tie things back to the big picture
+
+## Next Steps 
+
+Outline next steps here if relevant
+
+# Acknowledgements 
+
+Make sure to acknowledge others as needed, and make sure to acknowledge funding sources

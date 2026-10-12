@@ -1,0 +1,169 @@
+---
+title: "Individual Development Plan"
+author: "Student Name"
+date: today
+format:
+  typst:
+    toc: true
+    toc-depth: 1
+execute:
+  echo: false
+---
+
+# Individual Information
+
+|                     |     |
+|---------------------|-----|
+| Degree Program      |     |
+| Term Started        |     |
+| Expected Graduation |     |
+
+------------------------------------------------------------------------
+
+# Career Exploration
+
+## Career Interests
+
+List the careers that received the highest interest matches from the AAAS assessment.
+
+| Career | Interest Match | Notes |
+|--------|----------------|-------|
+|        |                |       |
+|        |                |       |
+|        |                |       |
+
+------------------------------------------------------------------------
+
+## Values Assessment
+
+List the work values that are most important to you.
+
+1.  
+
+2.  
+
+3.  
+
+How do these values influence your career choices?
+
+> CONCISE PARAGRAPH
+
+------------------------------------------------------------------------
+
+# Career Gap Analysis
+
+Complete this section for your top career options.
+
+## Career Option 1
+
+### Career
+
+> Text here
+
+### Why I am Interested
+
+> Text here
+
+### Skills I Already Have
+
+- 
+
+- 
+
+- 
+
+### Skills I Need to Develop
+
+Below, identify the skills with the largest mismatch for the career path of interest.
+
+| Skill | Current Level (1–5) | Target Level |
+|-------|---------------------|--------------|
+|       |                     |              |
+|       |                     |              |
+
+### Development Plan
+
+Remember to keep your goals SMART (Specific, Measurable, Achievable, Relevant, and Time-bounded). Add rows as needed.
+
+| Specific Actions | Indicator of Success | Deadline |
+|------------------|----------------------|----------|
+|                  |                      |          |
+|                  |                      |          |
+
+------------------------------------------------------------------------
+
+## Career Option 2
+
+### Career
+
+> Text here
+
+### Why I am Interested
+
+> Text here
+
+### Skills I Already Have
+
+- 
+
+- 
+
+- 
+
+### Skills I Need to Develop
+
+Below, identify the skills with the largest mismatch for the career path of interest.
+
+| Skill | Current Level (1–5) | Target Level |
+|-------|---------------------|--------------|
+|       |                     |              |
+|       |                     |              |
+
+### Development Plan
+
+Remember to keep your goals SMART (Specific, Measurable, Achievable, Relevant, and Time-bounded). Add rows as needed.
+
+| Specific Actions | Indicator of Success | Deadline |
+|------------------|----------------------|----------|
+|                  |                      |          |
+|                  |                      |          |
+
+------------------------------------------------------------------------
+
+## Career Option 3
+
+### Career
+
+> Text here
+
+### Why I am Interested
+
+> Text here
+
+### Skills I Already Have
+
+- 
+
+- 
+
+- 
+
+### Skills I Need to Develop
+
+Below, identify the skills with the largest mismatch for the career path of interest.
+
+| Skill | Current Level (1–5) | Target Level |
+|-------|---------------------|--------------|
+|       |                     |              |
+|       |                     |              |
+
+### Development Plan
+
+Remember to keep your goals SMART (Specific, Measurable, Achievable, Relevant, and Time-bounded). Add rows as needed.
+
+| Specific Actions | Indicator of Success | Deadline |
+|------------------|----------------------|----------|
+|                  |                      |          |
+|                  |                      |          |
+
+------------------------------------------------------------------------

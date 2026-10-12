@@ -1,0 +1,42 @@
+---
+title: "Semester / Summer Report"
+format:
+  typst:
+    linkcolor: "#0066cc"
+    toc: true
+    number-sections: false
+    code-overflow: wrap
+author: "YOUR NAME"
+date: "`r Sys.Date()`"
+---
+
+### Report Instructions
+
+This template is for undergraduates working primarily on lab maintenance, general support, or other broader tasks. Your main tasks for this report are to ensure any protocols used are up-to-date and descriptive, and that your lab notebook is up-to-date on the GitHub repo. This will help me keep the lab running over time.
+
+Reports should be generated with this quarto file, and need to be independent (no additional files needed to render the document). The styling/aesthetics are up to you. Once completed (and the draft is approved by Matt), these reports should be rendered and both the qmd file and the PDF output posted to the 'term-reports' channel in slack - make sure they're written so that anyone in the lab can follow along!
+
+A couple small (but important) requirements:
+
+- All code chunks should use `echo = T`.
+- Save the file / PDF output as YYYY_LASTNAME_TERM.pdf
+  - YYYY = Year in 4-digit format (e.g. 2025)
+  - LASTNAME = your last name in upper case (e.g. SASAKI)
+  - TERM = Either "FALL", "SPRING", or "SUMMER".
+  - Combined, the PDF file name should be something like "2025_SASAKI_FALL.pdf"
+
+The instructions above can be removed before submitting the final report. The sections below can be used for the report (just replace the text under each heading).
+
+------------------------------------------------------------------------
+
+## Key Information
+
+| Resource          | Link | Last Update |
+|-------------------|------|-------------|
+| Your Lab Notebook |      | YYYY-MM-DD  |
+| Protocol 1        |      | YYYY-MM-DD  |
+| Protocol 2        |      | YYYY-MM-DD  |
+
+## Troubleshooting
+
+Was there any troubleshooting you had to do this term? Or are there elements of our workflow that you think need to be revisited to help lab work proceed more smoothly?

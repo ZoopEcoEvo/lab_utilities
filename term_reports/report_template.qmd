@@ -12,9 +12,7 @@ date: "`r Sys.Date()`"
 
 ### Report Instructions
 
-Graduate students and undergraduates working on independent projects need to provide an overview of what they've been working on at the end of the semester / summer. For undergraduates or anyone else working primarily on lab maintenance, general support, or other broader tasks, your only tasks is to make sure any protocols used are up-to-date and descriptive. This will help me keep the lab running over time.
-
-Reports should be generated with this quarto file, and need to be independent (no additional files needed to render the document). The styling/aesthetics are up to you.
+Graduate students and undergraduates working on independent projects need to provide an overview of what they've been working on at the end of the semester / summer. Reports should be generated with this quarto file, and need to be independent (no additional files needed to render the document). The styling/aesthetics are up to you.
 
 This report should cover work across any and all projects (you don't need a separate report for each one). The report should include:
 
