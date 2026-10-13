@@ -45,3 +45,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261010181126-vfuld5,2026-10-09,Skistodiaptomus pallidus,LLPA,water_change,AH,Low,4,"maninly adults/copepodites, some algal retained",2026-10-10T18:11:26.688Z
 20261013210507-atvxwp,2026-10-13,Skistodiaptomus pallidus,NPNE,fed,AH,Very Low,,"all copepodites or adults, no observed nauplii; some algae retained, majority removed",2026-10-13T21:05:07.266Z
 20261013210507-oaytry,2026-10-13,Skistodiaptomus pallidus,NPNE,water_change,AH,Very Low,4,"all copepodites or adults, no observed nauplii; some algae retained, majority removed",2026-10-13T21:05:07.266Z
+20261013210536-cu5b0m,2026-10-13,Skistodiaptomus pallidus,HPPA,fed,AH,Low,,"all life stages in present, seemingly equal proportion of three main stages; some algae retained, majority removed",2026-10-13T21:05:36.320Z
+20261013210536-d3buz2,2026-10-13,Skistodiaptomus pallidus,HPPA,water_change,AH,Low,2,"all life stages in present, seemingly equal proportion of three main stages; some algae retained, majority removed",2026-10-13T21:05:36.320Z
