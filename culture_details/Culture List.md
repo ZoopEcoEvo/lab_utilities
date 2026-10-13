@@ -13,7 +13,7 @@
 | Canterbury Pond, Connecticut | CPCT | 41.5910596, -73.4064492 | 2026-06-24      | 22.5                   |
 | Ochsner Pond, Ohio           | OPOH | 39.857240, -83.022499   | 2025-06-09      | 22.6                   |
 | Silver Lake, Massachusetts   | SLMA |    |       |                    |
-
+| Lowell, Massachusetts   | LOMA |    |       |                    |
 
 ## Leptodiaptomus siciloides
 
