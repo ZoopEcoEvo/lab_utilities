@@ -37,6 +37,10 @@ The instructions above can be removed before submitting the final report. The se
 | Protocol 1        |      | YYYY-MM-DD  |
 | Protocol 2        |      | YYYY-MM-DD  |
 
+## Lab Expectations
+
+- [ ] I confirm that I've reviewed the lab expectations (found [here](https://sasaki-lab.com/handbook/expectations)).
+
 ## Troubleshooting
 
 Was there any troubleshooting you had to do this term? Or are there elements of our workflow that you think need to be revisited to help lab work proceed more smoothly?
