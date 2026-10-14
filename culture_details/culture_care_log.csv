@@ -56,3 +56,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261014165625-pbgbml,2026-10-13,Skistodiaptomus pallidus,KMCO,fed,Jackson,,,,2026-10-14T16:56:25.285Z
 20261014165633-xdorz4,2026-10-13,Skistodiaptomus pallidus,CPCO,fed,Jackson,,,,2026-10-14T16:56:33.069Z
 20261014165640-3o4dju,2026-10-13,Skistodiaptomus pallidus,GLCO,fed,Jackson,,,,2026-10-14T16:56:40.983Z
+20261014165752-2sc41o,2026-10-13,Skistodiaptomus pallidus,SLMA,fed,Jackson,Medium,,,2026-10-14T16:57:52.582Z
+20261014165752-zncvvx,2026-10-13,Skistodiaptomus pallidus,SLMA,water_change,Jackson,Medium,2,,2026-10-14T16:57:52.582Z
