@@ -49,8 +49,6 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261013210536-d3buz2,2026-10-13,Skistodiaptomus pallidus,HPPA,water_change,AH,Low,2,"all life stages in present, seemingly equal proportion of three main stages; some algae retained, majority removed",2026-10-13T21:05:36.320Z
 20261013210855-ifm4vk,2026-10-13,Skistodiaptomus pallidus,LOMA,fed,AH,Low,,"all life stages in present, copepodite and adult biased; some algae retained, majority removed",2026-10-13T21:08:55.664Z
 20261013210855-v36j8m,2026-10-13,Skistodiaptomus pallidus,LOMA,water_change,AH,Low,2,"all life stages in present, copepodite and adult biased; some algae retained, majority removed",2026-10-13T21:08:55.664Z
-20261014165333-ojuadi,2026-10-14,Skistodiaptomus pallidus,CPCT,fed,Jackson,Medium,,,2026-10-14T16:53:33.110Z
-20261014165333-yd1bih,2026-10-14,Skistodiaptomus pallidus,CPCT,water_change,Jackson,Medium,2,,2026-10-14T16:53:33.110Z
 20261014165515-adj7kz,2026-10-13,Skistodiaptomus pallidus,LLPA,fed,Jackson,,,,2026-10-14T16:55:15.704Z
 20261014165548-d6z2zg,2026-10-13,Leptodiaptomus siciloides,BRNY,fed,Jackson,,,,2026-10-14T16:55:48.536Z
 20261014165607-nbjkf0,2026-10-13,Skistodiaptomus pallidus,OPOH,fed,Jackson,,,,2026-10-14T16:56:07.218Z
