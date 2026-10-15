@@ -66,3 +66,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261015145605-bjpur8,2026-10-15,Skistodiaptomus pallidus,KMCO,water_change,Nathan,Low,4,"All stages, some unnaturally green particles (plastics?)",2026-10-15T14:56:05.118Z
 20261015152051-u1pg38,2026-10-15,Skistodiaptomus pallidus,BRNY,fed,Nathan,Medium,,,2026-10-15T15:20:51.529Z
 20261015152051-ph25oj,2026-10-15,Skistodiaptomus pallidus,BRNY,water_change,Nathan,Medium,6,,2026-10-15T15:20:51.529Z
+20261015152453-w9q0i8,2026-10-15,Skistodiaptomus pallidus,HPPA,fed,Jace,Low,,"Lots of nauplii, low algal contamination",2026-10-15T15:24:53.060Z
+20261015152453-k2psic,2026-10-15,Skistodiaptomus pallidus,HPPA,water_change,Jace,Low,2,"Lots of nauplii, low algal contamination",2026-10-15T15:24:53.060Z
