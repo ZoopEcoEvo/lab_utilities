@@ -64,3 +64,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261014184924-8wr9sv,2026-10-14,Skistodiaptomus pallidus,CPCO,water_change,Zeba,Low,4,few gravid females,2026-10-14T18:49:24.140Z
 20261015145605-0p458d,2026-10-15,Skistodiaptomus pallidus,KMCO,fed,Nathan,Low,,"All stages, some unnaturally green particles (plastics?)",2026-10-15T14:56:05.118Z
 20261015145605-bjpur8,2026-10-15,Skistodiaptomus pallidus,KMCO,water_change,Nathan,Low,4,"All stages, some unnaturally green particles (plastics?)",2026-10-15T14:56:05.118Z
+20261015152051-u1pg38,2026-10-15,Skistodiaptomus pallidus,BRNY,fed,Nathan,Medium,,,2026-10-15T15:20:51.529Z
+20261015152051-ph25oj,2026-10-15,Skistodiaptomus pallidus,BRNY,water_change,Nathan,Medium,6,,2026-10-15T15:20:51.529Z
