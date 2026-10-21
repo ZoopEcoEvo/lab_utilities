@@ -95,3 +95,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261021181626-dzmt9d,2026-10-21,Skistodiaptomus pallidus,CPCO,water_change,Jose,Low,4,Some algae removed,2026-10-21T18:16:26.204Z
 20261021182954-hnfdnp,2026-10-21,Skistodiaptomus pallidus,LLPA,water_change,Lindsey,Low,4,,2026-10-21T18:29:54.595Z
 20261021185507-0n3g5f,2026-10-21,Skistodiaptomus pallidus,OPOH,water_change,Zeba,Low,4,"Skiptodiaptumus Palidus, Lots of algae, some algae removed",2026-10-21T18:55:07.875Z
+20261021190231-8xrd5e,2026-10-21,Skistodiaptomus pallidus,CPCT,fed,Jose,Medium,,Some algae removed,2026-10-21T19:02:31.323Z
+20261021190231-a0a1bu,2026-10-21,Skistodiaptomus pallidus,CPCT,water_change,Jose,Medium,2,Some algae removed,2026-10-21T19:02:31.323Z
