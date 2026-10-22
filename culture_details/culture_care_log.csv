@@ -102,3 +102,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261021190355-k0biux,2026-10-21,Skistodiaptomus pallidus,CPCO,fed,Zeba,Low,,,2026-10-21T19:03:55.167Z
 20261022151236-jrqk7m,2026-10-22,Skistodiaptomus pallidus,CPCO1,fed,Nathan,Medium,,,2026-10-22T15:12:36.588Z
 20261022151236-wtxkrm,2026-10-22,Skistodiaptomus pallidus,CPCO1,water_change,Nathan,Medium,6,,2026-10-22T15:12:36.588Z
+20261022153302-2jroln,2026-10-22,Leptodiaptomus siciloides,BRNY,fed,Nathan,Low,,,2026-10-22T15:33:02.287Z
+20261022153302-ob6m45,2026-10-22,Leptodiaptomus siciloides,BRNY,water_change,Nathan,Low,4,,2026-10-22T15:33:02.287Z
