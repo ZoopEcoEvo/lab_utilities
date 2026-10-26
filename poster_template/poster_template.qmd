@@ -1,0 +1,322 @@
+---
+title: "Placeholder title for a scientific poster of approximately average length - this should be descriptive (can you summarize the main point?)"
+author:
+  - name: Author Number One
+    affiliations:
+      - ref: 1
+  - name: Author Number Two
+    affiliations:
+      - ref: 1
+affiliations:
+  - id: 1
+    name: "Department of Biological Sciences"
+
+# Downloads Open Sans from Google Fonts when the poster is rendered, so
+# everyone gets the same font without installing anything. Needs internet;
+# if a render fails while fetching fonts, delete this whole `brand:` block
+# and the fallback fonts in `font:` below are used instead.
+# Each style used on the poster must be downloaded, or **bold** and *italic*
+# show up as plain text: regular + bold, then italic.
+brand:
+  typography:
+    fonts:
+      - family: Open Sans
+        source: google
+        weight: [400, 700]
+      - family: Open Sans
+        source: google
+        style: italic
+    base: Open Sans
+
+format:
+  typst:
+    fig-format: svg
+    citeproc: true
+    include-in-header:
+      text: |
+        // =====================================================================
+        //  POSTER SETTINGS  (same options as posterdown_html; edit freely)
+        // =====================================================================
+        #let poster = (
+          width: 45in,
+          height: 32in,
+          margin: 0.5in,                  // white border around the whole poster (print safety)
+          columns: 3,
+          column-widths: (1fr, 1.5fr, 1fr),            // e.g. none or (1fr, 1.5fr, 1fr): relative widths, one per
+                                          // column (overrides `columns`; end each column
+                                          // with {{< pagebreak >}}). none = equal widths.
+          column-gap: 1em,                // space between columns
+          primary: rgb("#0b4545"),        // title bar, section boxes, column lines
+          secondary: rgb("#008080"),      // links, code accents
+          title-text: white,
+          body-text: black,
+          font: ("Open Sans", "Segoe UI", "Helvetica Neue", "Noto Sans", "Arial"),  // first one found is used
+          body-size: 34pt,                // posterdown: 45px
+          title-size: 75pt,
+          author-size: 50pt,
+          affiliation-size: 35pt,
+          sectitle-size: 65pt,
+          sectitle-padding: 0.4em,        // colour above and below section heading text (1em = body text size)
+          sectitle2-size: 40pt,
+          caption-size: 20pt,
+          table-row-padding: 10pt,        // space above and below the text in each table row
+          hyphenate: false,               // true = split long words across lines with a hyphen
+          justify: false,                  // false = ragged right edge (no stretched word gaps)
+          list-markers: ([•], [–]),       // bullet shape per level: first, second, ... e.g. [▸], [◦], [–], [·]
+          list-spacing: 0.9em,            // space between top-level bullets
+          sublist-spacing: 0.5em,         // space between a bullet and its sub-bullets
+          titlebox-height: 15%,
+          column-line: none, // alternatively:  (thickness: 1mm, dash: (4mm, 3mm)),
+          // Logos are set in the `logos` chunk just below the YAML header.
+        )
+
+        // =====================================================================
+        //  POSTER LAYOUT  (you shouldn't need to edit below this line)
+        // =====================================================================
+        // {{< pagebreak >}} in the text starts a new column.
+        #let pagebreak(..args) = metadata("poster-colbreak")
+
+        #let article(title: none, authors: none, doc, ..rest) = {
+          let s = poster
+          // Everything is laid out inside the margin: W x H is the printable area
+          let W = s.width - 2 * s.margin
+          let H = s.height - 2 * s.margin
+          let title-h = H * (s.titlebox-height / 100%)
+          set page(width: s.width, height: s.height, margin: s.margin, numbering: none)
+          set text(font: s.font, size: s.body-size, fill: s.body-text)
+          set text(hyphenate: s.hyphenate)
+          set par(justify: s.justify, leading: 0.5em, spacing: 0.9em)
+          show link: set text(fill: s.secondary)
+          show ref: set text(fill: s.secondary)
+          show cite: set text(fill: s.secondary)
+
+          // Section headers: filled boxes (#) and plain subheads (##)
+          show heading: set text(weight: "regular")
+          show heading.where(level: 1): it => block(
+            width: 100%, fill: s.primary, sticky: true,
+            radius: (top-left: 4mm, bottom-right: 4mm),
+            inset: (y: s.sectitle-padding), above: 0.6em, below: 0.5em,
+            align(center, text(size: s.sectitle-size, fill: white, it.body)))
+          show heading.where(level: 2): it => block(
+            sticky: true, inset: (left: 4mm), above: 0.8em, below: 0.4em,
+            text(size: s.sectitle2-size, it.body))
+          // Bullets: shape per level; sub-bullets sit closer to their parent
+          let list-depth = state("poster-list-depth", 0)
+          set list(marker: s.list-markers, indent: 4mm, spacing: s.list-spacing)
+          show list: it => {
+            list-depth.update(d => d + 1)
+            context {
+              if list-depth.get() > 1 and it.at("spacing", default: auto) != s.sublist-spacing {
+                v(s.sublist-spacing - par.spacing)
+                let f = it.fields()
+                let items = f.remove("children")
+                list(..f, spacing: s.sublist-spacing, ..items)
+              } else { it }
+            }
+            list-depth.update(d => d - 1)
+          }
+          set enum(indent: 4mm)
+
+          // Code
+          show raw.where(block: false): it => box(
+            fill: s.secondary.lighten(86%), radius: 2mm,
+            inset: (x: 1.2mm), outset: (y: 1.5mm),
+            text(fill: s.primary, size: 0.85em, it))
+          show raw.where(block: true): it => align(center, block(
+            width: 85%, fill: none, stroke: 1mm + s.secondary, radius: 0.5em,
+            inset: 4mm, breakable: false,
+            align(left, {
+              set block(fill: none, inset: 0pt, radius: 0pt, width: auto)
+              text(size: 20pt, it)
+            })))
+
+          // Figures and tables
+          show figure: set block(breakable: false, above: 1em, below: 1em)
+          show figure.caption: set text(size: s.caption-size)
+          set table(inset: (x: 20pt, y: s.table-row-padding), align: center,
+            stroke: (x, y) => if y == 0 { (bottom: 3pt + luma(220)) })  // one line under the header row
+          show table: it => align(center, box(stroke: (top: 3pt + luma(100), bottom: 3pt + luma(100)), it))
+          // Center images (with or without a caption) within the column
+          show image: it => block(width: 100%, spacing: 0pt, align(center, it))
+          show table: set text(size: 30pt)
+
+          // References list (the {#refs} div)
+          show <refs>: set text(size: 22pt)
+          show <refs>: set par(justify: false)
+
+          // Title bar
+          let affils = ()
+          if authors != none {
+            for a in authors {
+              let af = a.at("affiliation", default: [])
+              if af != [] and af not in affils { affils.push(af) }
+            }
+          }
+          // Logo locations come from the `logos` chunk (see below the YAML)
+          let logo(side) = context {
+            let q = query(label("poster-logo-" + side))
+            if q.len() > 0 and q.first().value != none { image(q.first().value, width: 70%) }
+          }
+          block(width: 100%, height: title-h, fill: s.primary, spacing: 0pt,
+            grid(columns: (10%, 80%, 10%), rows: (100%,), align: center + horizon,
+              logo("left"),
+              text(fill: s.title-text, {
+                set par(justify: false)
+                if title != none { par(leading: 0.3em, text(size: s.title-size, title)) }
+                v(0.2em)
+                if authors != none {
+                  text(size: s.author-size, authors.map(a => {
+                    let af = a.at("affiliation", default: [])
+                    let i = affils.position(x => x == af)
+                    a.name + if i != none { super(str(i + 1)) }
+                  }).join(", "))
+                }
+                v(0.1em)
+                if affils.len() > 0 {
+                  text(size: s.affiliation-size, affils.enumerate()
+                    .map(((i, af)) => super(str(i + 1)) + " " + af).join("; "))
+                }
+              }),
+              logo("right")))
+
+          // Body: columns with dashed rules between them
+          let pad-y = H * 0.01
+          let pad-x = 0.5em
+          let gap = s.column-gap
+          let body-h = H - title-h - 2 * pad-y
+          let rule = if s.column-line == none { none } else {
+            line(angle: 90deg, length: body-h, stroke: (paint: s.primary) + s.column-line)
+          }
+          let widths = s.at("column-widths", default: none)
+          block(width: 100%, height: H - title-h, spacing: 0pt,
+            inset: (x: pad-x, y: pad-y), {
+              if widths == none {
+                // Equal widths: text flows from one column into the next
+                show metadata: it => if it.value == "poster-colbreak" { colbreak() } else { it }
+                let n = s.columns
+                let colw = (W - 2 * pad-x - (n - 1) * gap) / n
+                if rule != none {
+                  for i in range(1, n) { place(top + left, dx: i * colw + (i - 0.5) * gap, rule) }
+                }
+                columns(n, gutter: gap, doc)
+              } else {
+                // Custom widths: each {{< pagebreak >}} ends a column
+                let parts = ((),)
+                let kids = if doc.has("children") { doc.children } else { (doc,) }
+                for c in kids {
+                  if c.func() == metadata and c.value == "poster-colbreak" { parts.push(()) }
+                  else { parts.at(-1).push(c) }
+                }
+                let n = widths.len()
+                // Extra pagebreaks beyond the number of columns go into the last column
+                while parts.len() > n { let x = parts.pop(); parts.at(-1) += x }
+                while parts.len() < n { parts.push(()) }
+                let cells = ()
+                for (i, p) in parts.enumerate() {
+                  if i > 0 { cells.push(align(center, rule)) }
+                  cells.push(block(width: 100%, height: body-h, p.join()))
+                }
+                let cols = ()
+                for (i, w) in widths.enumerate() {
+                  if i > 0 { cols.push(gap) }
+                  cols.push(w)
+                }
+                grid(columns: cols, ..cells)
+              }
+            })
+        }
+
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| label: logos
+#| echo: false
+#| output: asis
+# ---- Logos ------------------------------------------------------------------
+# A GitHub link (".../blob/..." page link or raw link), a path to a local PNG,
+# or NA for no logo. Downloads go into Quarto's temporary render folder, which
+# is deleted after the PDF is made, so nothing is saved next to this file.
+
+library(tidyverse)
+
+logos <- c(
+  left  = "https://raw.githubusercontent.com/ZoopEcoEvo/lab_utilities/main/lab_logos/text_logo_white.png",
+  right = "https://raw.githubusercontent.com/ZoopEcoEvo/lab_utilities/refs/heads/main/lab_logos/UML_Biology_Logo_White.png"
+)
+
+tmp_dir <- dirname(paste0(knitr::opts_chunk$get("fig.path"), "x"))  # Quarto's figure folder
+dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+token <- Sys.getenv("GITHUB_PAT")
+
+cat("```{=typst}\n")
+for (side in names(logos)) {
+  src <- gsub("&#58;", ":", logos[[side]], fixed = TRUE)  # undo the visual editor's escaped colon
+  path <- NA
+  if (!is.na(src) && grepl("^https?://", src)) {
+    url  <- sub("^https://github.com/([^/]+/[^/]+)/blob/", "https://raw.githubusercontent.com/\\1/", src)
+    dest <- file.path(tmp_dir, paste0("logo-", side, ".png"))
+    ok <- tryCatch({
+      download.file(url, dest, mode = "wb", quiet = TRUE,
+                    headers = if (nzchar(token)) c(Authorization = paste("token", token)))
+      identical(readBin(dest, "raw", 4), as.raw(c(0x89, 0x50, 0x4e, 0x47)))  # is it a PNG?
+    }, error = function(e) FALSE, warning = function(w) FALSE)
+    if (ok) path <- dest else message("Couldn't download ", url, "; leaving the ", side, " logo blank.")
+  } else if (!is.na(src)) {
+    path <- src  # local file
+  }
+  cat(sprintf("#metadata(%s) <poster-logo-%s>\n",
+              if (is.na(path)) "none" else paste0('"', path, '"'), side))
+}
+cat("```\n")
+
+```
+
+# Introduction
+
+- BULLET POINTS
+
+# Central Question
+
+**Central Question Here**
+
+## Hypothesis
+
+State hypothesis here <!--# be ready to articulate why we might expect this? -->
+
+{{< pagebreak >}}
+
+# Results
+
+```{r morefigs, out.width='100%', fig.align='center', fig.cap='Descriptive figure caption here', fig.width=10, fig.height=7.5}
+
+
+ggplot()
+
+```
+
+\
+
+{{< pagebreak >}}
+
+# Methods
+
+- Provide methodological details here. Or better yet, use a schematic
+
+# Conclusion
+
+- Conclusions here
+
+# Next Steps
+
+(Optional section)
+
+# References
+
+(Optional section)
+
+# Acknowledgements
+
+Text here

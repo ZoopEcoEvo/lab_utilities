@@ -17,7 +17,7 @@ primary_colour:
 secondary_colour:
 accent_colour: 
 logoleft_name: https&#58;//raw.githubusercontent.com/ZoopEcoEvo/lab_utilities/main/lab_logos/text_logo_white.png
-logoright_name: 
+logoright_name: https&#58;//raw.githubusercontent.com/ZoopEcoEvo/lab_utilities/refs/heads/main/lab_logos/UML_Biology_Logo_White.png
 output: 
   posterdown::posterdown_html:
     self_contained: true
