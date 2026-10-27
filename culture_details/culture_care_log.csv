@@ -137,3 +137,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261027152448-k5bthw,2026-10-27,Skistodiaptomus pallidus,KMCO,water_change,Jackson,Low,2,,2026-10-27T15:24:48.518Z
 20261027152524-zvf7db,2026-10-27,Skistodiaptomus pallidus,LOMA,fed,Jackson,Medium,,,2026-10-27T15:25:24.853Z
 20261027152524-wbvmku,2026-10-27,Skistodiaptomus pallidus,LOMA,water_change,Jackson,Medium,2,,2026-10-27T15:25:24.853Z
+20261027204217-cfioqt,2026-10-27,Skistodiaptomus pallidus,GLCO,fed,AH,Very Low,,"extremely low abundance (<30), no observed nauplii",2026-10-27T20:42:17.552Z
+20261027204217-y32m3c,2026-10-27,Skistodiaptomus pallidus,GLCO,water_change,AH,Very Low,2,"extremely low abundance (<30), no observed nauplii",2026-10-27T20:42:17.552Z
