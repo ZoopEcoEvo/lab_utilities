@@ -144,3 +144,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261028183920-p3wmwh,2026-10-28,Skistodiaptomus pallidus,CPCO1,fed,Lindsey,Low,,"lots of gravid females, lots of contamination that I was unable to remove",2026-10-28T18:39:20.482Z
 20261028183920-07tife,2026-10-28,Skistodiaptomus pallidus,CPCO1,water_change,Lindsey,Low,4,"lots of gravid females, lots of contamination that I was unable to remove",2026-10-28T18:39:20.482Z
 20261028190306-5bbeqp,2026-10-28,Skistodiaptomus pallidus,LLPA,water_change,Jose,Low,4,,2026-10-28T19:03:06.733Z
+20261029150122-lynmgs,2026-10-29,Skistodiaptomus pallidus,CPCO1,fed,Nathan,Medium,,,2026-10-29T15:01:22.422Z
+20261029150122-oawafx,2026-10-29,Skistodiaptomus pallidus,CPCO1,water_change,Nathan,Medium,6,,2026-10-29T15:01:22.422Z
