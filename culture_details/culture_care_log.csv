@@ -188,3 +188,4 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261103223924-bmk75s,2026-11-03,Skistodiaptomus pallidus,GLCO,water_change,AH,Very Low,2,"mostly adults, some copepodites and nauplii",2026-11-03T22:39:24.387Z
 20261103223940-mwcpvs,2026-11-03,Skistodiaptomus pallidus,BRNY,fed,AH,Low,,"lots of copepodites, some nauplii, many adults",2026-11-03T22:39:40.408Z
 20261103223940-n5oogw,2026-11-03,Skistodiaptomus pallidus,BRNY,water_change,AH,Low,4,"lots of copepodites, some nauplii, many adults",2026-11-03T22:39:40.408Z
+20261104193940-wrynx3,2026-11-04,Leptodiaptomus siciloides,BRNY,water_change,Lindsey,Low,7,"high contamination, no (low Abundance) nauplii but some gravid females",2026-11-04T19:39:40.824Z
