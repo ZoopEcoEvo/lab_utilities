@@ -192,3 +192,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261104194613-19sdtr,2026-11-04,Leptodiaptomus siciloides,BRNY,fed,Lindsey,Low,,,2026-11-04T19:46:13.303Z
 20261105154804-kx6tse,2026-11-05,Skistodiaptomus pallidus,KMCO,fed,Nathan,Low,,many gravid adults,2026-11-05T15:48:04.485Z
 20261105154804-l000fk,2026-11-05,Skistodiaptomus pallidus,KMCO,water_change,Nathan,Low,2,many gravid adults,2026-11-05T15:48:04.485Z
+20261105160139-wl2plx,2026-11-05,Skistodiaptomus pallidus,NPNE,fed,Nathan,Low,,"all stages, lots of gravids and nauplii",2026-11-05T16:01:39.402Z
+20261105160139-qushej,2026-11-05,Skistodiaptomus pallidus,NPNE,water_change,Nathan,Low,4,"all stages, lots of gravids and nauplii",2026-11-05T16:01:39.402Z
