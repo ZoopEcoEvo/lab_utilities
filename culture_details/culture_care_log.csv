@@ -198,3 +198,4 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261105164159-mwqdnl,2026-11-05,Skistodiaptomus pallidus,OPOH,water_change,Jace,Low,4,"All lifestages, high algal content",2026-11-05T16:41:59.935Z
 20261106193126-2v70sr,2026-11-06,Skistodiaptomus pallidus,CPCO1,fed,Jace,Medium,,"All lifestages, low nauplii, high algal contamination",2026-11-06T19:31:26.407Z
 20261106193126-v8nzax,2026-11-06,Skistodiaptomus pallidus,CPCO1,water_change,Jace,Medium,6,"All lifestages, low nauplii, high algal contamination",2026-11-06T19:31:26.407Z
+20261106193841-ztsk4k,2026-11-06,Skistodiaptomus pallidus,GLCO,fed,Jace,,,,2026-11-06T19:38:41.108Z
