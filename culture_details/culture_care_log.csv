@@ -224,3 +224,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261111154727-tiinkn,2026-11-10,Skistodiaptomus pallidus,BRNY,fed,AH,Low,,,2026-11-11T15:47:27.439Z
 20261111154727-8w3gu3,2026-11-10,Skistodiaptomus pallidus,BRNY,water_change,AH,Low,4,,2026-11-11T15:47:27.439Z
 20261112154718-mdy16p,2026-11-10,Skistodiaptomus pallidus,LLPA,fed,AH,,,,2026-11-12T15:47:18.761Z
+20261112155239-g40zzp,2026-11-12,Skistodiaptomus pallidus,CPCO2,fed,Nathan,Low,,,2026-11-12T15:52:39.184Z
+20261112155239-hfu84r,2026-11-12,Skistodiaptomus pallidus,CPCO2,water_change,Nathan,Low,4,,2026-11-12T15:52:39.184Z
