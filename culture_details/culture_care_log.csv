@@ -245,3 +245,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261113194419-lgm02f,2026-11-13,Skistodiaptomus pallidus,LOMA,fed,Lindsey,,,,2026-11-13T19:44:19.284Z
 20261113202737-bfgumk,2026-11-13,Leptodiaptomus siciloides,BRNY,fed,Jace,,,,2026-11-13T20:27:37.964Z
 20261113202837-dpbbpp,2026-11-13,Skistodiaptomus pallidus,NPNE,water_change,Jace,Very Low,4,"Lots of nauplii, but high algal content",2026-11-13T20:28:37.815Z
+20261113203231-gbgo2o,2026-11-13,Leptodiaptomus siciloides,BRNY,fed,Lindsey,Medium,,,2026-11-13T20:32:31.154Z
+20261113203231-8365a1,2026-11-13,Leptodiaptomus siciloides,BRNY,water_change,Lindsey,Medium,8,,2026-11-13T20:32:31.154Z
