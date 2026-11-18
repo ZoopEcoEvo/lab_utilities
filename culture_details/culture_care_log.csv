@@ -267,3 +267,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261118013608-c10lzi,2026-11-17,Skistodiaptomus pallidus,OPOH,fed,AH,,,"many adults and copepodites, most algae removed, some retained",2026-11-18T01:36:08.961Z
 20261118013608-ux9icw,2026-11-17,Skistodiaptomus pallidus,OPOH,water_change,AH,,4,"many adults and copepodites, most algae removed, some retained",2026-11-18T01:36:08.961Z
 20261118192346-czlmuw,2026-11-18,Skistodiaptomus pallidus,KMCO,water_change,Jose,Very Low,2,Some algae removed,2026-11-18T19:23:46.594Z
+20261118195727-1leybf,2026-11-18,Leptodiaptomus siciloides,BRNY,fed,Jose,Low,,"Lots of algae, some algae removed",2026-11-18T19:57:27.829Z
+20261118195727-0gnr0d,2026-11-18,Leptodiaptomus siciloides,BRNY,water_change,Jose,Low,5,"Lots of algae, some algae removed",2026-11-18T19:57:27.829Z
