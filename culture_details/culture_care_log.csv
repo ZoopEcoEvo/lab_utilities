@@ -262,3 +262,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261116170339-rjg548,2026-11-16,Leptodiaptomus siciloides,BRNY,fed,Jackson,,,,2026-11-16T17:03:39.889Z
 20261117161730-syzvvb,2026-11-17,Skistodiaptomus pallidus,LOMA,fed,Jackson,Very Low,,,2026-11-17T16:17:30.737Z
 20261117161730-swgyfm,2026-11-17,Skistodiaptomus pallidus,LOMA,water_change,Jackson,Very Low,2,,2026-11-17T16:17:30.737Z
+20261118013557-bp3j9z,2026-11-17,Skistodiaptomus pallidus,CPCO1,fed,AH,,,"many adults and copepodites, most algae removed, some retained",2026-11-18T01:35:57.955Z
+20261118013557-x7rodm,2026-11-17,Skistodiaptomus pallidus,CPCO1,water_change,AH,,7,"many adults and copepodites, most algae removed, some retained",2026-11-18T01:35:57.955Z
