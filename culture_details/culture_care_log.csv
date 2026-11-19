@@ -269,3 +269,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261118192346-czlmuw,2026-11-18,Skistodiaptomus pallidus,KMCO,water_change,Jose,Very Low,2,Some algae removed,2026-11-18T19:23:46.594Z
 20261118195727-1leybf,2026-11-18,Leptodiaptomus siciloides,BRNY,fed,Jose,Low,,"Lots of algae, some algae removed",2026-11-18T19:57:27.829Z
 20261118195727-0gnr0d,2026-11-18,Leptodiaptomus siciloides,BRNY,water_change,Jose,Low,5,"Lots of algae, some algae removed",2026-11-18T19:57:27.829Z
+20261119155228-40113p,2026-11-19,Skistodiaptomus pallidus,LLPA,fed,Nathan,Low,,,2026-11-19T15:52:28.630Z
+20261119155228-6wi7eo,2026-11-19,Skistodiaptomus pallidus,LLPA,water_change,Nathan,Low,4,,2026-11-19T15:52:28.630Z
