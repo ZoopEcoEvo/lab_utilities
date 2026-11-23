@@ -307,3 +307,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261123205441-fpuqhd,2026-11-21,Skistodiaptomus pallidus,BRNY,water_change,AH,Low,4,all three life stages,2026-11-23T20:54:41.256Z
 20261123205507-6c5q73,2026-11-21,Skistodiaptomus pallidus,HPPA,fed,AH,Low,,some type of non-copepod organism swimming,2026-11-23T20:55:07.697Z
 20261123205507-np8iyf,2026-11-21,Skistodiaptomus pallidus,HPPA,water_change,AH,Low,2,some type of non-copepod organism swimming,2026-11-23T20:55:07.697Z
+20261123205528-3cwfdm,2026-11-21,Skistodiaptomus pallidus,SLMA,fed,AH,Very Low,,many gravid females,2026-11-23T20:55:28.420Z
+20261123205528-pqtyrd,2026-11-21,Skistodiaptomus pallidus,SLMA,water_change,AH,Very Low,2,many gravid females,2026-11-23T20:55:28.420Z
