@@ -314,3 +314,4 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261123211335-5130fw,2026-11-23,Leptodiaptomus siciloides,BRNY,water_change,Jace,Medium,8,"High algae content, lots of nauplii",2026-11-23T21:13:35.161Z
 20261123213416-povq4y,2026-11-23,Skistodiaptomus pallidus,HPPA,fed,Jace,Medium,,,2026-11-23T21:34:16.816Z
 20261123213416-b2uzen,2026-11-23,Skistodiaptomus pallidus,HPPA,water_change,Jace,Medium,2,,2026-11-23T21:34:16.816Z
+20261123213443-86cjjd,2026-11-23,Leptodiaptomus siciloides,BRNY,fed,Jace,,,,2026-11-23T21:34:43.398Z
