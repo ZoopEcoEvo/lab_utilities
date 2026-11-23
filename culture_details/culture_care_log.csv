@@ -311,3 +311,4 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261123205528-pqtyrd,2026-11-21,Skistodiaptomus pallidus,SLMA,water_change,AH,Very Low,2,many gravid females,2026-11-23T20:55:28.420Z
 20261123205546-ebffky,2026-11-21,Skistodiaptomus pallidus,OPOH,fed,AH,Low,,some nauplii,2026-11-23T20:55:46.873Z
 20261123205546-rnihjl,2026-11-21,Skistodiaptomus pallidus,OPOH,water_change,AH,Low,4,some nauplii,2026-11-23T20:55:46.873Z
+20261123211335-5130fw,2026-11-23,Leptodiaptomus siciloides,BRNY,water_change,Jace,Medium,8,"High algae content, lots of nauplii",2026-11-23T21:13:35.161Z
