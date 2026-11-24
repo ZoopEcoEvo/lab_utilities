@@ -315,3 +315,5 @@ id,date,species,code,action,person,abundance,volume_l,note,logged_at
 20261123213416-povq4y,2026-11-23,Skistodiaptomus pallidus,HPPA,fed,Jace,Medium,,,2026-11-23T21:34:16.816Z
 20261123213416-b2uzen,2026-11-23,Skistodiaptomus pallidus,HPPA,water_change,Jace,Medium,2,,2026-11-23T21:34:16.816Z
 20261123213443-86cjjd,2026-11-23,Leptodiaptomus siciloides,BRNY,fed,Jace,,,,2026-11-23T21:34:43.398Z
+20261124161711-mev1qf,2026-11-24,Skistodiaptomus pallidus,KMCO,fed,Jackson,Low,,,2026-11-24T16:17:11.548Z
+20261124161711-id99nz,2026-11-24,Skistodiaptomus pallidus,KMCO,water_change,Jackson,Low,2,,2026-11-24T16:17:11.548Z
